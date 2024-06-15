@@ -52,10 +52,12 @@ Rails.application.routes.draw do
   # 顧客用
 # URL /customers/sign_in ...
 
+
   devise_for :customers
 
 # 管理者用
 # URL /admin/sign_in ...
+
 
 
   devise_for :admin
