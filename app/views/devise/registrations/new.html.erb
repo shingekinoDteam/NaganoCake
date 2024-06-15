@@ -1,29 +1,79 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container">
+  <div class="row m-3">
+    <h2 style="font-size: 22px; background-color: #dcdcdc;">新規会員登録</h2>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <table class="row">
+      <tbody>
+        <tr class="field">
+          <td><p>名前</p></td>
+          <td><%= f.label :（姓） %></td>
+          <td><%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: "form-control form-control-sm" %></td>
+          <td><%= f.label :（名） %></td>
+          <td><%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control form-control-sm" %></td>
+        </tr>
 
-<%= render "devise/shared/links" %>
+        <tr class="field">
+          <td><p>フリガナ</p></td>
+          <td><%= f.label :（セイ） %></td>
+          <td><%= f.text_field :last_name_kana, autofocus: true, autocomplete: "last_name_kana", class: "form-control form-control-sm" %></td>
+          <td><%= f.label :（メイ） %></td>
+          <td><%= f.text_field :first_name_kana, autofocus: true, autocomplete: "first_name_kana", class: "form-control form-control-sm" %></td>
+        </tr>
+
+        <tr class="field">
+          <td><p>メールアドレス</p></td>
+          <td></td>
+          <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-sm" %></td>
+        </tr>
+
+        <tr class="field">
+          <td><p>郵便番号（ハイフンなし）</p></td>
+          <td></td>
+          <td><%= f.text_field :postal_code, autofocus: true, autocomplete: "postal_code", class: "form-control form-control-sm" %></td>
+        </tr>
+
+        <tr class="field">
+          <td><p>住所</p></td>
+          <td></td>
+          <td colspan="5" class="col-xs-6"><%= f.text_field :address, autofocus: true, autocomplete: "address", class: "form-control form-control-sm" %></td>
+        </tr>
+
+        <tr class="field">
+          <td><p>電話番号（ハイフンなし）</p></td>
+          <td></td>
+          <td><%= f.text_field :telephone_number, autofocus: true, autocomplete: "telephone_number", class: "form-control form-control-sm" %></td>
+        </tr>
+
+        <tr class="field">
+          <td><p>パスワード（6文字以上）</p></td>
+          <td></td>
+          <td><%= f.password_field :password, autocomplete: "new-password", class: "form-control form-control-sm" %></td>
+        </tr>
+
+        <tr class="field">
+          <td><p>パスワード（確認用）</p></td>
+          <td></td>
+          <td><%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control form-control-sm" %></td>
+        </tr>
+
+        <tr class="actions">
+          <td></td>
+          <td></td>
+          <td><%= f.submit "新規登録",class: 'btn btn-sm btn-success btn-block mt-3' %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+
+  <div class="row m-3">
+    <h2 style="font-size: 22px; background-color: #dcdcdc;">既に登録済みの方</h2>
+  </div>
+  <div class="d-flex flex-row ml-5">
+    <%= render "devise/shared/links" %><p>からログインしてください</p>
+  </div>
+</div>
