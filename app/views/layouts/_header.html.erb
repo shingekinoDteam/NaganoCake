@@ -12,7 +12,7 @@
     <%= link_to "About", about_path %>
     <%= link_to "商品一覧", items_path %>
     <%= link_to "カート", cart_items_path %>
-    <%= link_to "ログアウト", destroy_customer_session_path %>
+    <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
     ようこそ <%= current_customer.last_name %> さん
   <% else %>
     <%= link_to "About", about_path %>
