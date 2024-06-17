@@ -1,5 +1,5 @@
 <h3>商品新規登録</h3>
-<%= form_with model: [:admin, @item], local: true, class: 'col-6 mx-auto' do |f| %>
+<%= form_with model: [:admin, @item], url: {controller: 'items', action: 'create' }, local: true, method: :post, class: 'col-6 mx-auto' do |f| %>
   <div class="form-group row">
     <%= f.label :image, '商品画像', class: 'col-sm-3 col-form-label' %>
     <div class="col-sm-9">
@@ -29,15 +29,15 @@
   </div>
 
   <div class="form-group row">
-  <%= f.label :status, '販売ステータス', class: 'col-sm-3 col-form-label' %>
+  <%= f.label :is_active, '販売ステータス', class: 'col-sm-3 col-form-label' %>
   <div class="col-sm-9">
     <div class="custom-control custom-radio custom-control-inline">
-      <%= f.radio_button :status, 'on_sale', checked: @item.status == 'on_sale', class: 'custom-control-input', id: 'status-on-sale' %>
-      <%= f.label :status, '販売中', class: 'custom-control-label', for: 'status-on-sale' %>
+      <%= f.radio_button :is_active, 'on_sale', checked: @item.status == 'on_sale', class: 'custom-control-input', id: 'status-on-sale' %>
+      <%= f.label :is_active, '販売中', class: 'custom-control-label', for: 'status-on-sale' %>
     </div>
     <div class="custom-control custom-radio custom-control-inline">
-      <%= f.radio_button :status, 'off_sale', checked: @item.status == 'off_sale', class: 'custom-control-input', id: 'status-off-sale' %>
-      <%= f.label :status, '販売停止中', class: 'custom-control-label', for: 'status-off-sale' %>
+      <%= f.radio_button :is_active, 'off_sale', checked: @item.status == 'off_sale', class: 'custom-control-input', id: 'status-off-sale' %>
+      <%= f.label :is_active, '販売停止中', class: 'custom-control-label', for: 'status-off-sale' %>
     </div>
   </div>
 </div>
