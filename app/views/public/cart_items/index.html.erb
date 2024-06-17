@@ -1,2 +1,96 @@
-<h1>Public::CartItems#index</h1>
-<p>Find me in app/views/public/cart_items/index.html.erb</p>
+<div class="container mt-5 d-flex-column space-around">
+ <div class="row row-content">
+  <% if @cart_items.blank? %>
+   <div class="col-md-8 text-center">
+    <h3>カート内に商品はございません</h3>
+   </div>
+  <% else %>
+    <div class="col-md-10">
+     <div class="row justify-content-center head-items mb-4">
+       <h4 class="col-md-4 text-center headline">ショッピングカート</h4>
+     </div>
+     <div class="row justify-content-end">
+       <div class="col-md-2 mb-2">
+        <%= link_to 'カートを空にする', destroy_all_cart_items_path , method: :delete , "data-confirm" => "カート内にある全ての商品が削除されます。\n本当に削除しますか？" , class: "btn btn-sm btn-danger" %>
+       </div>
+     </div>
+     <table class="table table-hover table-inverse table-bordered custom-table", style="border-color: #3C2A21;">
+       <thead>
+         <tr align=center >
+           <th scope="col" style="width: 40%">商品名</th>
+           <th scope="col" style="width: 10%">単価（税込）</th>
+           <th scope="col" style="width: 20%">数量</th>
+           <th scope="col" style="width: 10%">小計</th>
+           <th scope="col" style="width: 10%"></th>
+         </tr>
+       </thead>
+       <tbody>
+          <% @cart_items.each do |cart_item| %>
+           <tr id="cart_item_<%= cart_item.id %>">
+             <td class="align-middle"><%= image_tag cart_item.item.get_image(100, 100), class: "p-2 image" %> <%= cart_item.item.name %></td>
+             <td class="align-middle text-center"><%= cart_item.item.with_tax_price.to_s(:delimited) %>円</td>
+             <td id="select-form" class="align-middle">
+              <%= form_with(model: cart_item, url: cart_item_path(cart_item), method: :patch, local: false, class: "text-center") do |form| %>
+                <%= form.hidden_field :customer_id, :value => current_customer.id %>
+                <%= form.hidden_field :item_id, :value => cart_item.item.id %>
+                <%= form.select :quantity, *[1..50],{}, class: "form-select-sm" %>
+              <% end %>
+             </td>
+             <td class="align-middle subtotal-area text-center">
+               <%= render 'subtotal', cart_item: cart_item %>
+             </td>
+             <td class="align-middle text-center"><%= link_to '削除', cart_item_path(cart_item), method: :delete, class: "btn btn-danger", data: { confirm: "本当に削除しますか？" }   %></td>
+           </tr>
+         <% end %>
+       </tbody>
+     </table>
+    </div>
+   </div>
+   <div class="row row-content-middle mt-3">
+     <div class="col-md-4">
+      <%= link_to '買い物を続ける', root_path, class: "btn", style: "background-color: #1A120B; color: #E5E5CB;" %>
+     </div>
+     <div class="col-md-2">
+      <table class="table table-hover table-inverse table-bordered", style="border-color: #3C2A21;">
+        <tbody>
+          <tr align="center">
+            <th style="background-color: rgba(60, 42, 33, 0.5);">合計金額</th>
+            <td class="text-center total-area">
+              <%= render 'total', total_amount: @total_amount %>
+             </td>
+          </tr>
+        </tbody>
+      </table>
+     </div>
+   </div>
+   <div class="row mt-5 row-content">
+    <div class="col-md-3 text-center">
+      <%= link_to '情報入力へ進む', new_order_path, class: "btn", style: "background-color: #1A120B; color: #E5E5CB;" %>
+    </div>
+  <% end %>
+ </div>
+</div>
+
+<!--個数選択時のAjaxリクエスト-->
+<script>
+  $(document).on("change", "#select-form select", function() {
+    let form = $(this).closest("form");
+    let url = form.attr("action");
+    let method = form.attr("method");
+    let data = form.serialize();
+
+    $.ajax({
+      url: url,
+      method: method,
+      data: data,
+      success: function(response) {
+        let cartItemRow = form.closest("tr#cart_item");
+        cartItemRow.find(".subtotal-area").html(response);
+      },
+      error: function(xhr) {
+        console.log(xhr.responseText);
+      }
+    });
+  });
+</script>
+
