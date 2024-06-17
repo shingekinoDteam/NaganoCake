@@ -29,7 +29,7 @@
           <%= f.label :address_option_1,"登録済住所から選択" %>
         </div>
         <div>
-          <%= f.collection_select(:registered, current_customer.addresses.all, :id, :address) %>
+          <%= f.collection_select :address_id, @addresses, :id, :address %>
         </div>
 
     　　<div class="mt-3">
@@ -48,6 +48,7 @@
           <%= f.label :name, '宛名' ,class: "col-3" %>
           <%= f.text_field :name, class: "col-3" %>
         </div>
+        <!--遷移先未指定後で-->
         <div class="text-center">
           <%= f.submit '確認画面へ進む', class: "btn btn-primary" %>
         </div>
