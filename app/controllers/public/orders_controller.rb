@@ -7,23 +7,29 @@ class Public::OrdersController < ApplicationController
   end
 
   def create
-    order = Order.new(order_params)
-    order.save
-    @cart_items = current_customer.cart_items.all
+  @order = Order.new(order_params)
 
-    @cart_items.each do |cart_item|
-      @order_details = OrderDetail.new
-      @order_details.order_id = order.id
-      @order_details.item_id = cart_item.item.id
-      @order_details.price = cart_item.item.price_excluding_tax
-      @order_details.amount = cart_item.amount
-      @order_details.making_status = 0
-      @order_details.save!
+    if @order.save
+
+      @cart_items = current_customer.cart_items.all
+
+      @cart_items.each do |cart_item|
+        @order_details = OrderDetail.new
+        @order_details.order_id = @order.id
+        @order_details.item_id = cart_item.item.id
+        @order_details.price = cart_item.item.price_excluding_tax
+        @order_details.amount = cart_item.amount
+        @order_details.making_status = 0
+        @order_details.save!
+      end
+      flash[:notice] = "注文が成功しました"
+
+      CartItem.destroy_all
+      redirect_to orders_thanks_path
+    else
+      flash.now[:alert] = "注文に失敗しました"
+      render :new
     end
-
-    CartItem.destroy_all
-    redirect_to orders_thanks_path
-
   end
 
   def confirm
