@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   get 'customers/unsubscribe' => 'public/customers#unsubscribe'
   get 'customers/withdraw' => 'public/customers#withdraw'
   get 'cart_items/destroy_all' => 'public/cart_items#destroy_all'
-  get 'orders/confirm' => 'public/orders#confirm'
+  post 'orders/confirm' => 'public/orders#confirm'
   get 'orders/thanks' => 'public/orders#thanks'
 
   get 'admin' => 'admin/homes#top'

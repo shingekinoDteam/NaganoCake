@@ -33,7 +33,7 @@ class Public::OrdersController < ApplicationController
      if params[:order][:address_option] == "0"
        @order.postal_code = current_customer.postal_code
        @order.name = current_customer.first_name + current_customer.last_name
-       @order.address = current_customer.customer_address
+       @order.address = current_customer.address
 
      elsif params[:order][:address_option] == "1"
        @address = Address.find(params[:order][:address_id])
@@ -66,8 +66,4 @@ class Public::OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:postal_code,:address,:name,:payment_method,:shipping_cost,:total_payment,:status,:customer_id)
   end
-
-　def price_excluding_tax
-      price * 1.1
-　end
 end
