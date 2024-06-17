@@ -1,5 +1,7 @@
 class Admin::ItemsController < ApplicationController
   def index
+    @items = Item.all.page(params[:page]).per(8)
+    @genres = Genre.all
   end
 
   def new
@@ -12,13 +14,18 @@ class Admin::ItemsController < ApplicationController
       flash[:notice] = "投稿に成功しました。"
       redirect_to admin_items_path
     else
-      flash.now[:alert] = "投稿に失敗しました。"
+      flash.now[:alert] = "投稿に失敗しました。エラー: #{@item.errors.full_messages.join(', ')}"
       render :new
     end
   end
 
   def show
     @item = Item.find(params[:id])
+    @genres = Genre.all
+    Rails.logger.debug { "Item: #{@item.inspect}" }
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = "商品が見つかりませんでした。"
+    redirect_to public_items_path
   end
 
   def edit
@@ -31,6 +38,6 @@ class Admin::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name, :introduction, :price, :image, :is_active)
+    params.require(:item).permit(:name, :introduction, :price, :is_active, :image, :genre_id)
   end
 end

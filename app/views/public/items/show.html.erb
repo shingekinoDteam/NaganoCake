@@ -1,43 +1,45 @@
 <div class='container px-5 px-sm-0 my-5'>
   <div class='row'>
     <div class='col-md-3'>
-          
-        <table class='table table-hover table-bordered'>
-            
-          <thead class="mw-100">
+      <table class='table table-hover table-bordered'>
+        <thead class="mw-100">
+          <tr>
+            <th class="text-center">ジャンル検索</th>
+          </tr>
+        </thead>
+        <tbody class="min-1000px border">
+          <% @genres.each do |genre| %>
             <tr>
-              <!--検索機能 未実装-->
-              <th class="text-center">ジャンル検索</th>
+              <td class="border-0"><%= genre.name %></td>
             </tr>
-          </thead>
-          
-          <tbody class="min-1000px border">
-            <% @genres.each do |genre| %>
-              <tr>
-                <!--現状はジャンル名表示だけ、linkなし-->
-                <td class="border-0"><%= genre.name %></td>
-              </tr>
-            <% end %>
-          </tbody>
-          
+          <% end %>
+        </tbody>
       </table>
-      
     </div>
-    
+
     <div class='col-md-8 offset-md-1'>
       <div class="row">
-        <%= @item.image %>
-        <%= @item.name %>
-        <%= @item.introuction %>
-        <%= "￥" + @item.price * 1.1 + "(税込)" %>
-        <%= form_with model: CartItem.new , url: cart_items_path, local: true do |f| %>
-          <%= f.label :amount, "個数選択" %>
-          <%= f.number_field :amount, min: 1, max: 100, placeholder: '個数選択', class:"amount-select-form" %>
-          <%= f.hidden_field :item_id, :value => @item.id %>
-          <%= f.submit "カートに入れる", class: "btn btn-primary" %>
-        <% end %>
+        <div class="col-md-12">
+          <% if @item %>
+            <% if @item.image.attached? %>
+              <%= image_tag @item.image, class: 'img-fluid' %>
+            <% end %>
+            <h2><%= @item.name %></h2>
+            <p><%= @item.introduction %></p>
+            <p><%= "￥" + (@item.price * 1.1).to_s + " (税込)" %></p>
+            <%= form_with model: CartItem.new , url: cart_items_path, local: true do |f| %>
+              <div class="form-group">
+                <%= f.label :amount, "個数選択" %>
+                <%= f.number_field :amount, min: 1, max: 100, placeholder: '個数選択', class:"amount-select-form form-control" %>
+              </div>
+              <%= f.hidden_field :item_id, value: @item.id %>
+              <%= f.submit "カートに入れる", class: "btn btn-primary" %>
+            <% end %>
+          <% else %>
+            <p>商品が見つかりませんでした。</p>
+          <% end %>
+        </div>
       </div>
     </div>
-    
   </div>
 </div>

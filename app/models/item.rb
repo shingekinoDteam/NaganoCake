@@ -6,4 +6,10 @@ class Item < ApplicationRecord
   has_many :order_details, dependent: :destroy
 
   belongs_to :genre
+  
+  validates :name, presence: true
+  validates :introduction, presence: true
+  validates :price, presence: true, numericality: { only_integer: true }
+  # validates :is_active, inclusion: { in: is_actives.keys }
+  validates :genre, presence: true
 end
