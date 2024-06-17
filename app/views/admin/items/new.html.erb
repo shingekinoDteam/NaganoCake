@@ -19,6 +19,12 @@
     </div>
   </div>
   <div class="form-group row">
+    <%= f.label :genre_id, 'ジャンル', class: 'col-sm-3 col-form-label' %>
+    <div class="col-sm-9">
+      <%= f.collection_select :genre_id, Genre.all, :id, :name, prompt: 'ジャンルを選択してください', class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group row">
     <%= f.label :price, '税抜価格', class: 'col-sm-3 col-form-label' %>
     <div class="col-sm-9 input-group">
       <%= f.number_field :price, class: 'form-control' %>
