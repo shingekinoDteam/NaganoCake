@@ -53,8 +53,10 @@ Rails.application.routes.draw do
 # URL /customers/sign_in ...
 
 
-  devise_for :customers
-
+  # devise_for :customers
+  devise_for :customers, controllers: {
+    sessions: 'public/customers/sessions'
+  }
 # 管理者用
 # URL /admin/sign_in ...
 
