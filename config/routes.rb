@@ -53,8 +53,10 @@ Rails.application.routes.draw do
 # URL /customers/sign_in ...
 
 
-  devise_for :customers
-
+  # devise_for :customers
+  devise_for :customers, controllers: {
+    sessions: 'public/customers/sessions'
+  }
 # 管理者用
 # URL /admin/sign_in ...
 
@@ -68,7 +70,7 @@ Rails.application.routes.draw do
   get 'customers/unsubscribe' => 'public/customers#unsubscribe'
   get 'customers/withdraw' => 'public/customers#withdraw'
   get 'cart_items/destroy_all' => 'public/cart_items#destroy_all'
-  get 'orders/confirm' => 'public/orders#confirm'
+  post 'orders/confirm' => 'public/orders#confirm'
   get 'orders/thanks' => 'public/orders#thanks'
 
   get 'admin' => 'admin/homes#top'

@@ -17,4 +17,8 @@ class Customer < ApplicationRecord
   has_many :addresses, dependent: :destroy
   has_many :orders, dependent: :destroy
   has_many :cart_items, dependent: :destroy
+
+  def is_unactive_for_authentication?
+    super && (is_active == false)
+  end
 end
