@@ -1,2 +1,43 @@
-<h1>Public::Customers#show</h1>
-<p>Find me in app/views/public/customers/show.html.erb</p>
+<div class='container px-2 px-sm-0'>
+  <div class='row ml-5 pl-5 mt-3'>
+    <h1 style="background-color: #dcdcdc; font-size: 24px;">マイページ</h1>
+  </div>
+  <div class='row mt-3'>
+    <h2 style="font-size: 22px;" class="col-2">登録情報</h2>
+    <%= link_to '編集する', customers_information_edit_path, class: "col-1 btn btn-sm btn-success" %>
+  </div>
+  <table class='table mt-3 table-bordered'>
+    <tr>
+      <td scope="col" style="width: 20%">氏名</td>
+      <td><%= current_customer.last_name %> <%= current_customer.first_name %></td>
+    </tr>
+    <tr>
+      <td scope="col" style="width: 20%">カナ</td>
+      <td><%= current_customer.last_name_kana %> <%= current_customer.first_name_kana %></td>
+    </tr>
+    <tr>
+      <td scope="col" style="width: 20%">郵便番号</td>
+      <td><%= current_customer.postal_code %></td>
+    </tr>
+    <tr>
+      <td scope="col" style="width: 20%">住所</td>
+      <td><%= current_customer.address %></td>
+    </tr>
+    <tr>
+      <td scope="col" style="width: 20%">電話番号</td>
+      <td><%= current_customer.telephone_number %></td>
+    </tr>
+    <tr>
+      <td scope="col" style="width: 20%">メールアドレス</td>
+      <td><%= current_customer.email %></td>
+    </tr>
+  </table>
+  <div class='row mt-3'>
+    <h2 style="font-size: 22px;" class="col-2">配送先</h2>
+    <%= link_to '一覧を見る', addresses_path(current_customer), class: "col-2 btn btn-sm btn-primary" %>
+  </div>
+  <div class='row mt-3'>
+    <h2 style="font-size: 22px;" class="col-2">注文履歴</h2>
+    <%= link_to '一覧を見る', orders_path(current_customer), class: "col-2 btn btn-sm btn-primary" %>
+  </div>
+</div>
