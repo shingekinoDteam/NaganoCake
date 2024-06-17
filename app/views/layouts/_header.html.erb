@@ -9,7 +9,7 @@
       <%= link_to "ログアウト", destroy_admin_session_path %>
     <% end %>
   <% elsif customer_signed_in? %>
-    <%= link_to "About", about_path %>
+    <%= link_to "マイページ", customers_my_page_path %>
     <%= link_to "商品一覧", items_path %>
     <%= link_to "カート", cart_items_path %>
     <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
