@@ -6,8 +6,8 @@ class Public::ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @tax_included_price = @item.with_tax_price
     @genres = Genre.all
-    @tax_included_price = (@item.price * 1.1).round  # 消費税込みの価格を計算
 
     if @item.nil?
       flash[:alert] = "商品が見つかりませんでした。"
