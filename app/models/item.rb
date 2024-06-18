@@ -12,4 +12,8 @@ class Item < ApplicationRecord
   validates :price, presence: true, numericality: { only_integer: true }
   # validates :is_active, inclusion: { in: is_actives.keys }
   validates :genre, presence: true
+  
+  def with_tax_price
+    (self.price * 1.1).floor
+  end
 end

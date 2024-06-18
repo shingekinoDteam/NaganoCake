@@ -28,13 +28,15 @@
           <h2><%= @item.name %></h2>
           <p><%= @item.introduction %></p>
           <p class="h4"><strong>￥<%= @tax_included_price.to_s(:delimited) %></strong> <small class="text-muted" style="font-size: 60%;">(税込)</small></p>
-          <%= form_with model: CartItem.new, url: cart_items_path, local: true, class: "form-inline" do |f| %>
-            <div class="form-group mb-2">
-              <%= f.label :amount, "個数選択", class: "mr-2" %>
-              <%= f.select :amount, options_for_select((1..100).map { |i| [i, i] }), {}, class: "form-control mr-5", style: "width: 100px;" %>
-            </div>
-            <%= f.hidden_field :item_id, value: @item.id %>
-            <%= f.submit "カートに入れる", class: "btn btn-primary mb-2" %>
+          <% if @item.is_active %>
+            <%= form_with model: CartItem.new, url: cart_items_path, local: true, class: "form-inline" do |f| %>
+              <div class="form-group mb-2">
+                <%= f.label :amount, "個数選択", class: "mr-2" %>
+                <%= f.select :amount, options_for_select((1..100).map { |i| [i, i] }), {}, class: "form-control mr-5", style: "width: 100px;" %>
+              </div>
+              <%= f.hidden_field :item_id, value: @item.id %>
+              <%= f.submit "カートに入れる", class: "btn btn-primary mb-2" %>
+            <% end %>
           <% end %>
         </div>
       </div>

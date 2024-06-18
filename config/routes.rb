@@ -83,7 +83,12 @@ scope module: :public do
   get 'customers/information/edit' => 'customers#edit'
   patch 'customers/information' => 'customers#update'
 
-  resources :cart_items, only: [:index, :update, :destroy]
+  resources :cart_items, only: [:index, :create, :update, :destroy] do
+    collection do
+      delete 'destroy_all'
+    end
+  end
+
   resources :orders, only: [:new, :create, :index, :show]
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
 end
