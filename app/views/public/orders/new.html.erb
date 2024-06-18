@@ -1,6 +1,14 @@
 <div class="container mt-5">
   <div class="col-md-12">
     <div class="mb-3 text-danger font-weight-bolder">
+      <% if @order.errors.any? %>
+        <%= @order.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @order.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+        <% end %>
+      </ul>
+      <% end %>
 　　<h4>注文情報入力</h4>
     </div>
 
@@ -8,12 +16,12 @@
 
       <h5>支払方法</h5>
       <div>
-        <%= f.radio_button :payment_method_option, 0, checked: "checked" %>
-        <%= f.label "クレジットカード" %><br>
+        <%= f.radio_button :payment_method, Order.payment_methods.key(0) ,checked: true %>
+        <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
       </div>
       <div class="mb-2">
-        <%= f.radio_button :payment_method_option, 1 %>
-          <%= f.label "銀行振込" %>
+        <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+        <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
       </div>
 
       <h5>お届け先</h5>
@@ -28,7 +36,7 @@
           <%= f.label :address_option_1,"登録済住所から選択" %>
         </div>
         <div>
-          <%= f.collection_select :address_id, @addresses, :id, :address %>
+          <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_display) %>
         </div>
 
     　　<div class="mt-3">
@@ -47,7 +55,6 @@
           <%= f.label :name, '宛名' ,class: "col-3" %>
           <%= f.text_field :name, class: "col-3" %>
         </div>
-        <!--遷移先未指定後で-->
         <div class="text-center">
           <%= f.submit '確認画面へ進む', class: "btn btn-primary" %>
         </div>

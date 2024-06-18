@@ -1,4 +1,9 @@
 <header>
+  <div class="search-container">
+  <input type="text" placeholder="Search">
+  <span class="search-icon">&#128269;</span>
+　</div>
+
   <h1><%= link_to "LOGO", root_path %></h1>
   <% if admin_signed_in? %>
     <% if request.fullpath.include? "/admin"%>

@@ -40,10 +40,10 @@
 </table>
 
 <table>
-  <!--支払方法が反映されない-->
+  <!--日本語反映されない-->
   <tr>
     <th>支払方法</th>
-    <td><%= @order.payment_method_i18n%></td>
+    <td><%= @order.payment_method_i18n %></td>
   </tr>
   <tr>
     <th>お届け先</th>
@@ -58,7 +58,7 @@
 <%= form_with model: @order_new , url: "/orders" , local:true do |f| %>
   <%= f.hidden_field :customer_id, value: current_customer.id %>
   <%= f.hidden_field :payment_method, value:  @order.payment_method %>
-  <%= f.hidden_field :postage, value: 800 %>
+  <%= f.hidden_field :shipping_cost, value: 800 %>
   <%= f.hidden_field :postal_code, value: @order.postal_code %>
   <%= f.hidden_field :total_payment, value: @sum + 800%>
   <%= f.hidden_field :address, value: @order.address%>
