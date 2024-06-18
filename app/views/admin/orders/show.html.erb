@@ -1,2 +1,32 @@
-<h1>Admin::Orders#show</h1>
-<p>Find me in app/views/admin/orders/show.html.erb</p>
+<h5>注文履歴詳細</h5>
+
+<table>
+  <tr>
+    <td><b>購入者</b></td>
+    <td><%= @order.last_name%><%= @order.first_name%></td>
+  </tr>
+  <tr>
+    <td><b>注文日</b></td>
+    <td><%= @order.created_at %></td>
+  </tr>
+  <tr>
+    <td><b>配送先</b></td>
+    <td><%= @order.postal_code %></td>
+    <td><%= @order.address %></td>
+    <td><%= @order.name %></td>
+  </tr>
+  <tr>
+    <td><b>支払方法</b></td>
+    <td> <td><%= @order.payment_method %></td>
+    </td>
+  </tr>
+  <tr>
+    <td><b>注文ステータス</b></td>
+    <td>
+      <%= form_with model: @order, url: admin_order_path(@order), method: :patch do |f| %>
+      <%= f.select :status, Order.statuses.keys.map %>
+      <%= f.submit '更新', class:"btn btn-outline-success" %>
+      <% end %>
+    </td>
+  </tr>
+</table>
