@@ -22,10 +22,6 @@ class Admin::ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @genres = Genre.all
-    Rails.logger.debug { "Item: #{@item.inspect}" }
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = "商品が見つかりませんでした。"
-    redirect_to public_items_path
   end
 
   def edit
