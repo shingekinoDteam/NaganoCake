@@ -6,13 +6,11 @@
 
   <h1><%= link_to "LOGO", root_path %></h1>
   <% if admin_signed_in? %>
-    <% if request.fullpath.include? "/admin"%>
-      <%= link_to "About", about_path %>
-      <%= link_to "会員一覧", admin_customers_path %>
-      <%= link_to "注文履歴一覧", admin_path %>
-      <%= link_to "ジャンル一覧", admin_genres_path %>
-      <%= link_to "ログアウト", destroy_admin_session_path %>
-    <% end %>
+    <%= link_to "About", about_path %>
+    <%= link_to "会員一覧", admin_customers_path %>
+    <%= link_to "注文履歴一覧", admin_path %>
+    <%= link_to "ジャンル一覧", admin_genres_path %>
+    <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
   <% elsif customer_signed_in? %>
     <%= link_to "マイページ", customers_my_page_path %>
     <%= link_to "商品一覧", items_path %>
