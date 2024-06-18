@@ -19,24 +19,22 @@
 
     <div class='col-md-8 offset-md-1'>
       <div class="row">
-        <div class="col-md-12">
-          <% if @item %>
-            <% if @item.image.attached? %>
-              <%= image_tag @item.image, class: 'img-fluid' %>
-            <% end %>
-            <h2><%= @item.name %></h2>
-            <p><%= @item.introduction %></p>
-            <p><%= "￥" + (@item.price * 1.1).to_s + " (税込)" %></p>
-            <%= form_with model: CartItem.new , url: cart_items_path, local: true do |f| %>
-              <div class="form-group">
-                <%= f.label :amount, "個数選択" %>
-                <%= f.number_field :amount, min: 1, max: 100, placeholder: '個数選択', class:"amount-select-form form-control" %>
-              </div>
-              <%= f.hidden_field :item_id, value: @item.id %>
-              <%= f.submit "カートに入れる", class: "btn btn-primary" %>
-            <% end %>
-          <% else %>
-            <p>商品が見つかりませんでした。</p>
+        <div class="col-md-4">
+          <% if @item.image.attached? %>
+            <%= image_tag @item.image, class: 'img-fluid' %>
+          <% end %>
+        </div>
+        <div class="col-md-8">
+          <h2><%= @item.name %></h2>
+          <p><%= @item.introduction %></p>
+          <p class="h4"><strong>￥<%= @tax_included_price.to_s(:delimited) %></strong> <small class="text-muted" style="font-size: 60%;">(税込)</small></p>
+          <%= form_with model: CartItem.new, url: cart_items_path, local: true, class: "form-inline" do |f| %>
+            <div class="form-group mb-2">
+              <%= f.label :amount, "個数選択", class: "mr-2" %>
+              <%= f.select :amount, options_for_select((1..100).map { |i| [i, i] }), {}, class: "form-control mr-5", style: "width: 100px;" %>
+            </div>
+            <%= f.hidden_field :item_id, value: @item.id %>
+            <%= f.submit "カートに入れる", class: "btn btn-primary mb-2" %>
           <% end %>
         </div>
       </div>
