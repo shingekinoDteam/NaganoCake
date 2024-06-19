@@ -73,6 +73,6 @@
     <h2 style="font-size: 22px; background-color: #dcdcdc;">既に登録済みの方</h2>
   </div>
   <div class="d-flex flex-row ml-5">
-    <%= render "devise/shared/links" %><p>からログインしてください</p>
+    <%= link_to "こちら", new_session_path(resource_name) %><p>からログインしてください</p>
   </div>
 </div>
