@@ -25,9 +25,18 @@ class Admin::ItemsController < ApplicationController
   end
 
   def edit
+    @item = Item.find(params[:id])
   end
 
   def update
+    @item = Item.new(item_params)
+    if @item.save
+      flash[:notice] = "編集に成功しました。"
+      redirect_to admin_items_path
+    else
+      flash.now[:alert] = "編集に失敗しました。エラー: #{@item.errors.full_messages.join(', ')}"
+      render :new
+    end
 
   end
 
