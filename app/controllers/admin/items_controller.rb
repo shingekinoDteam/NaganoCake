@@ -11,10 +11,10 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      flash[:notice] = "投稿に成功しました。"
+      flash[:notice] = "登録に成功しました。"
       redirect_to admin_items_path
     else
-      flash.now[:alert] = "投稿に失敗しました。エラー: #{@item.errors.full_messages.join(', ')}"
+      flash.now[:alert] = "登録に失敗しました。エラー: #{@item.errors.full_messages.join(', ')}"
       render :new
     end
   end
@@ -29,13 +29,13 @@ class Admin::ItemsController < ApplicationController
   end
 
   def update
-    @item = Item.new(item_params)
-    if @item.save
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
       flash[:notice] = "編集に成功しました。"
-      redirect_to admin_items_path
+      redirect_to admin_item_path(@item)
     else
       flash.now[:alert] = "編集に失敗しました。エラー: #{@item.errors.full_messages.join(', ')}"
-      render :new
+      render :edit
     end
 
   end

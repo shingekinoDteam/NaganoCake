@@ -1,16 +1,36 @@
 <div class="container">
   <h2 class="text-center my-5">商品詳細</h2>
   <div class="row justify-content-center">
-    <div class="col-md-6">
-      <div style="padding-left:20%;">
-        <%= image_tag url_for(@item.image), class: 'img-fluid', style: 'width: 65%;' %>
+    <div class="col-md-4">
+      <div>
+        <%= image_tag url_for(@item.image), class: 'img-fluid', style: 'width: 80%;' %>
       </div>
     </div>
-    <div class="col-md-6">
-      <p class="my-4"><strong>商品名 </strong><span style="margin-left:150px;"><%= @item.name %></span></p>
-      <p class="my-4"><strong>商品説明 </strong><span style="margin-left:135px;"><%= @item.introduction %></span></p>
-      <p class="my-4"><strong>税込価格（税抜価格） </strong><span style="margin-left:40px;"><%= number_with_delimiter((@item.price * 1.1).round) %>円 ( <%= number_with_delimiter(@item.price) %>円 )</span></p>
-      <p class="my-4"><strong>販売ステータス </strong><span style="margin-left:90px; color:green;"><%= @item.on_sale? ? '販売停止中' : '販売中' %></span></p>
+    <div class="col-md-8">
+      <div class="container">
+        <table>
+          <tr style="height: 80px;">
+            <th style="width: 20%">商品名</th>
+            <td><%= @item.name %></td>
+          </tr>
+          <tr style="height: 80px;">
+            <th>商品説明</th>
+            <td><%= @item.introduction %></td>
+          </tr>
+          <tr style="height: 80px;">
+            <th>ジャンル</th>
+            <td><%= @item.genre.name %></td>
+          </tr>
+          <tr style="height: 80px;">
+            <th>税込価格</br>(税抜価格)</th>
+            <td><%= number_with_delimiter((@item.price * 1.1).round) %> ( <%= number_with_delimiter(@item.price) %> ) 円</td>
+          </tr>
+          <tr style="height: 80px;">
+            <th>販売ステータス</th>
+            <td style="color:green;"><%= @item.on_sale? ? '販売停止中' : '販売中' %></td>
+          </tr>
+        </table>
+      </div>
       <%= link_to '編集する', edit_admin_item_path(@item), class: 'btn btn-success' %>
     </div>
   </div>
