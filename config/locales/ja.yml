@@ -1,9 +1,5 @@
   ja:
   enums:
-    item:
-      is_active:
-        on_sale: '販売中'
-        off_sale: '販売停止中'
     order:
       status:
         wait_payment: '入金待ち'

@@ -1,31 +1,41 @@
 <div class="container">
   <h2 class="text-center my-5">商品新規登録</h2>
-  <%= form_with model: [:admin, @item], url: {controller: 'items', action: 'create' }, local: true, method: :post, class: 'col-6 mx-auto' do |f| %>
-    <div class="form-group row">
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this obj from being saved:</h2>
+      <ul>
+        <% @item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_with model: [:admin, @item], local: true, class: 'col-6 mx-auto' do |f| %>
+    <div class="form-group row my-4">
       <%= f.label :image, '商品画像', class: 'col-sm-4 col-form-label' %>
       <div class="col-sm-8">
         <%= f.file_field :image, accept: "image/*", class: 'form-control' %>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row my-4">
       <%= f.label :name, '商品名', class: 'col-sm-4 col-form-label' %>
       <div class="col-sm-8">
         <%= f.text_field :name, class: 'form-control' %>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row my-4">
       <%= f.label :introduction, '商品説明', class: 'col-sm-4 col-form-label' %>
       <div class="col-sm-8">
         <%= f.text_area :introduction, class: 'form-control', rows: 10 %>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row my-4">
       <%= f.label :genre_id, 'ジャンル', class: 'col-sm-4 col-form-label' %>
       <div class="col-sm-8">
-        <%= f.collection_select :genre_id, Genre.all, :id, :name, prompt: 'ジャンルを選択してください', class: 'form-control' %>
+        <%= f.select :genre_id, options_for_select(Genre.all.collect { |genre| [genre.name, genre.id] }, selected: @item.genre_id), { prompt: 'ジャンルを選択してください' }, { class: 'form-control' } %>
       </div>
     </div>
-    <div class="form-group row">
+    <div class="form-group row my-4">
       <%= f.label :price, '税抜価格', class: 'col-sm-4 col-form-label' %>
       <div class="col-sm-8 input-group">
         <%= f.number_field :price, class: 'form-control' %>
@@ -35,22 +45,22 @@
       </div>
     </div>
   
-    <div class="form-group row">
+    <div class="form-group row my-4">
       <%= f.label :is_active, '販売ステータス', class: 'col-sm-4 col-form-label' %>
       <div class="col-sm-8">
         <div class="custom-control custom-radio custom-control-inline">
-          <%= f.radio_button :is_active, 'on_sale', checked: @item.status == 'on_sale', class: 'custom-control-input', id: 'status-on-sale' %>
-          <%= f.label :is_active, '販売中', class: 'custom-control-label', for: 'status-on-sale' %>
+          <%= f.radio_button :is_active, true, checked: @item.is_active, class: 'custom-control-input', id: 'is_active-on-sale' %>
+          <%= f.label :is_active, '販売中', class: 'custom-control-label', for: 'is_active-on-sale' %>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <%= f.radio_button :is_active, 'off_sale', checked: @item.status == 'off_sale', class: 'custom-control-input', id: 'status-off-sale' %>
-          <%= f.label :is_active, '販売停止中', class: 'custom-control-label', for: 'status-off-sale' %>
+          <%= f.radio_button :is_active, false, checked: !@item.is_active, class: 'custom-control-input', id: 'is_active-off-sale' %>
+          <%= f.label :is_active, '販売停止中', class: 'custom-control-label', for: 'is_active-off-sale' %>
         </div>
       </div>
     </div>
     <div class="form-group row text-center">
       <div class="col-sm-8 offset-sm-3">
-        <%= f.submit '新規登録', class: 'btn btn-success btn-lg text-white' %>
+        <%= f.submit '新規登録', class: 'btn btn-success btn-lg text-white my-3' %>
       </div>
     </div>
   <% end %>

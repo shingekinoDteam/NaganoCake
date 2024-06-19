@@ -25,9 +25,9 @@
           <% end %>
         </div>
         <div class="col-md-8">
-          <h2><%= @item.name %></h2>
+          <h2 class="my-3"><%= @item.name %></h2>
           <p><%= @item.introduction %></p>
-          <p class="h4"><strong>￥<%= @tax_included_price.to_s(:delimited) %></strong> <small class="text-muted" style="font-size: 60%;">(税込)</small></p>
+          <p class="h4 my-3"><strong>￥<%= @tax_included_price.to_s(:delimited) %></strong> <small class="text-muted" style="font-size: 60%;">(税込)</small></p>
           <% if @item.is_active %>
             <%= form_with model: CartItem.new, url: cart_items_path, local: true, class: "form-inline" do |f| %>
               <div class="form-group mb-2">
@@ -37,6 +37,8 @@
               <%= f.hidden_field :item_id, value: @item.id %>
               <%= f.submit "カートに入れる", class: "btn btn-primary mb-2" %>
             <% end %>
+          <% else %>
+            <p>大変申しわけございません。</br>こちらの商品は、現在 <strong class="text-danger">品切れ</strong> でございます。</p>
           <% end %>
         </div>
       </div>

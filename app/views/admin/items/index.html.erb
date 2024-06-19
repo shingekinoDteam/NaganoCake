@@ -1,5 +1,8 @@
 <div class="container">
   <h2 class="text-center my-5">商品一覧</h2>
+  <div class="text-right">
+    <%= link_to '＋', new_admin_item_path, class: 'btn btn-light btn-lg my-3 shadow p-3 mb-5 bg-white rounded' %>
+  </div>
   <div class="container">
     <table class="table table-bordered">
       <thead>
@@ -8,7 +11,7 @@
           <th>商品名</th>
           <th>税抜価格</th>
           <th>ジャンル</th>
-          <th>注文ステータス</th>
+          <th>販売ステータス</th>
         </tr>
       </thead>
       <tbody>
@@ -22,7 +25,9 @@
           </td>
           <td><%= number_with_delimiter(item.price) %></td>
           <td><%= item.genre.name %></td>
-          <td style="color:green;"><%= item.on_sale? ? '販売停止中' : '販売中' %></td>
+          <td class="<%= item.is_active ? 'text-success' : 'text-secondary' %> font-weight-bolder">
+            <%= item.is_active ? '販売中' : '販売停止中' %>
+          </td>
         </tr>
       <% end %>
      </tbody>

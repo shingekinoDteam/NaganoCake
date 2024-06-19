@@ -14,7 +14,6 @@ class Admin::ItemsController < ApplicationController
       flash[:notice] = "登録に成功しました。"
       redirect_to admin_items_path
     else
-      flash.now[:alert] = "登録に失敗しました。エラー: #{@item.errors.full_messages.join(', ')}"
       render :new
     end
   end
@@ -34,7 +33,6 @@ class Admin::ItemsController < ApplicationController
       flash[:notice] = "編集に成功しました。"
       redirect_to admin_item_path(@item)
     else
-      flash.now[:alert] = "編集に失敗しました。エラー: #{@item.errors.full_messages.join(', ')}"
       render :edit
     end
 
