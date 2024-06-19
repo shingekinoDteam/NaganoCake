@@ -1,2 +1,57 @@
-<h1>Admin::Items#edit</h1>
-<p>Find me in app/views/admin/items/edit.html.erb</p>
+<h3>商品新規登録</h3>
+<%= form_with model: [:admin, @item], url: {controller: 'items', action: 'update' }, local: true, method: :patch, class: 'col-6 mx-auto' do |f| %>
+  <div class="form-group row">
+    <%= f.label :image, '商品画像', class: 'col-sm-3 col-form-label' %>
+    <div class="col-sm-9">
+      <%= f.file_field :image, accept: "image/*", class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :name, '商品名', class: 'col-sm-3 col-form-label' %>
+    <div class="col-sm-9">
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :introduction, '商品説明', class: 'col-sm-3 col-form-label' %>
+    <div class="col-sm-9">
+      <%= f.text_area :introduction, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :genre_id, 'ジャンル', class: 'col-sm-3 col-form-label' %>
+    <div class="col-sm-9">
+      <%= f.collection_select :genre_id, Genre.all, :id, :name, prompt: 'ジャンルを選択してください', class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group row">
+    <%= f.label :price, '税抜価格', class: 'col-sm-3 col-form-label' %>
+    <div class="col-sm-9 input-group">
+      <%= f.number_field :price, class: 'form-control' %>
+      <div class="input-group-append">
+        <span class="input-group-text">円</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+  <%= f.label :is_active, '販売ステータス', class: 'col-sm-3 col-form-label' %>
+  <div class="col-sm-9">
+    <div class="custom-control custom-radio custom-control-inline">
+      <%= f.radio_button :is_active, 'on_sale', checked: @item.status == 'on_sale', class: 'custom-control-input', id: 'status-on-sale' %>
+      <%= f.label :is_active, '販売中', class: 'custom-control-label', for: 'status-on-sale' %>
+    </div>
+    <div class="custom-control custom-radio custom-control-inline">
+      <%= f.radio_button :is_active, 'off_sale', checked: @item.status == 'off_sale', class: 'custom-control-input', id: 'status-off-sale' %>
+      <%= f.label :is_active, '販売停止中', class: 'custom-control-label', for: 'status-off-sale' %>
+    </div>
+  </div>
+</div>
+
+</div>
+  <div class="form-group row">
+    <div class="col-sm-9 offset-sm-3">
+      <%= f.submit '変更を保存', class: 'btn btn-success text-white' %>
+    </div>
+  </div>
+<% end %>

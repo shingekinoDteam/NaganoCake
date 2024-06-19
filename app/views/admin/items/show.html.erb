@@ -10,7 +10,7 @@
       <p class="my-4"><strong>商品名 </strong><span style="margin-left:150px;"><%= @item.name %></span></p>
       <p class="my-4"><strong>商品説明 </strong><span style="margin-left:135px;"><%= @item.introduction %></span></p>
       <p class="my-4"><strong>税込価格（税抜価格） </strong><span style="margin-left:40px;"><%= number_with_delimiter((@item.price * 1.1).round) %>円 ( <%= number_with_delimiter(@item.price) %>円 )</span></p>
-      <p class="my-4"><strong>販売ステータス </strong><span style="margin-left:90px; color:green;"><%= @item.on_sale? ? '販売中' : '販売停止中' %></span></p>
+      <p class="my-4"><strong>販売ステータス </strong><span style="margin-left:90px; color:green;"><%= @item.on_sale? ? '販売停止中' : '販売中' %></span></p>
       <%= link_to '編集する', edit_admin_item_path(@item), class: 'btn btn-success' %>
     </div>
   </div>
