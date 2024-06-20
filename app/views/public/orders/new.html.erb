@@ -36,7 +36,11 @@
           <%= f.label :address_option_1,"登録済住所から選択" %>
         </div>
         <div>
-          <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_wa) %>
+
+          <%= f.select :address_id, options_from_collection_for_select(Address.all, :id, :address_was) %>
+
+     
+
         </div>
 
     　　<div class="mt-3">
