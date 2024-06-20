@@ -3,7 +3,7 @@
 <table class='table table-hover table-inverse'>
   <tr>
     <td><b>購入者</b></td>
-    <td><%= @order_detail.order.last_name %><%= @order_detail.order.first_name %></td>
+    <td><%= @order_detail.order.customer.last_name %><%= @order_detail.order.customer.first_name %></td>
   </tr>
   <tr>
     <td><b>注文日</b></td>
@@ -36,10 +36,10 @@
     <th><b>単価（税込）</b></th>
     <th><b>数量</b></th>
     <th><b>小計</b></th>
-    <th><b>制作ステータス</b></th>
+    <th><b>製作ステータス</b></th>
   </thead>
   <% total_price = 0 %>
-  <% @order_detail.each do |order_detail| %>
+  <% @order_details.each do |order_detail| %>
     <tbody>
       <tr>
         <td><%= order_detail.item.name %></td>
@@ -47,9 +47,9 @@
         <td><%= order_detail.amount %></td>
         <td><%= (order_detail.price * order_detail.amount).to_i %></td>
         <td>
-          <%= form_with model: order_detail, url: admin_order_detail_path(order_detail.id), method: :patch do |f| %>
+          <%= form_with model: order_detail, url:  admin_order_order_detail_path(order_detail.id), method: :patch do |f| %>
             <%= f.select :making_status, OrderDetail.making_statuses.keys.map %>
-            <%= f.submit '更新', class:"btn btn-outline-success" %>
+            <%= f.submit '更新', class:"btn btn-success" %>
           <% end %>
         </td>
       </tr>
