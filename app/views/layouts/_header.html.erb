@@ -6,7 +6,7 @@
 
   <h1><%= link_to "LOGO", root_path %></h1>
   <% if admin_signed_in? %>
-    <%= link_to "About", about_path %>
+    <%= link_to "商品一覧", admin_items_path %>
     <%= link_to "会員一覧", admin_customers_path %>
     <%= link_to "注文履歴一覧", admin_path %>
     <%= link_to "ジャンル一覧", admin_genres_path %>
