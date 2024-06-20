@@ -1,34 +1,21 @@
 <h4>注文情報確認</h4>
 <table>
-  <tr>
-    <td>商品名</td>
-    <td>単価(税込)</td>
-    <td>数量</td>
-    <td>小計</td>
-  </tr>
-
   <% @sum = 0 %>
-
   <% @cart_items.each do |cart_item| %>
-
     <tr>
       <td>
-        <%= image_tag(cart_item.item, height: 300, width: 300, format: 'jpeg', fill: 'fill') %>
+        <%= image_tag cart_item.item.image.variant(resize_to_limit: [100, 100]) %>
         <%= cart_item.item.name %>
       </td>
       <td><%= cart_item.item.with_tax_price %></td>
       <td><%= cart_item.amount %></td>
-
-
-
-      <% @sum = cart_item.amount * cart_item.item.with_tax_price %>
-
-      <td><%= @sum %></td>
+      <% subtotal = cart_item.amount * cart_item.item.with_tax_price %>
+      <td><%= subtotal %></td>
     </tr>
-  <% end %>
-</table>
 
-<table>
+    <% @sum += subtotal %>
+  <% end %>
+
   <tr>
     <td>送料</td>
     <td>800</td>
@@ -52,7 +39,7 @@
   <tr>
     <th>お届け先</th>
     <td>
-      <%= @order.postal_code %>
+      〒<%= @order.postal_code %>
       <%= @order.address %>
       <%= @order.name %>
     </td>
