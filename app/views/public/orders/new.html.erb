@@ -17,11 +17,13 @@
       <h5>支払方法</h5>
       <div>
         <%= f.radio_button :payment_method, Order.payment_methods.key(0) ,checked: true %>
-        <%= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
+        <%#= f.label :payment_method_credit_card, Order.payment_methods_i18n[:credit_card] %>
+        <%= f.label :payment_method_credit_card, "クレジットカード" %>
       </div>
       <div class="mb-2">
         <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
-        <%= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
+        <%#= f.label :payment_method_transfer, Order.payment_methods_i18n[:transfer]%>
+        <%= f.label :payment_method_transfer, "銀行振込" %>
       </div>
 
       <h5>お届け先</h5>

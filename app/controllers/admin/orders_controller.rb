@@ -7,8 +7,21 @@ class Admin::OrdersController < ApplicationController
   end
 
    def update
+    # if params[:order][:status] == "confirm_payment"
+    #   @order =  Order.find(params[:id])
+    #   @order.update(status:"confirm_payment")
+    #   @order_details =  @order.order_details
+    # 繰り返し１つずつ取り出す
+    # orderdetailsの製作ステータスをupdate
+    # elsif
+    # 製作ステータスが製作中になったら注文ステータスを制作中に変更
+    # elsif
+    # 製作ステータスが製作完了になった時
+    # すべての商品の製作ステータスが製作完了になった時繰り返し→if
+    # else注文ステータスが発送済みになる
+
     @order_detail = OrderDetail.find(params[:id])
-    @order_detail.update(making_status: params[:order_detail][:making_status])
+    @order_detail.update(making_status: params[:order_detail][:status])
     order = @order_detail.order
     if params[:order_detail][:making_status] == "manufacturing"
        order.update(status:"making")

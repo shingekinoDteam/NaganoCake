@@ -33,9 +33,10 @@ class Public::OrdersController < ApplicationController
   end
 
   def confirm
-    @order = Order.new(order_params)
+    # @order = Order.new(order_params)
+    @order = Order.new
     @addresses = current_customer.addresses.all
-
+    @order.payment_method = params[:order][:payment_method]
      if params[:order][:address_option] == "0"
        @order.postal_code = current_customer.postal_code
        @order.name = current_customer.first_name + current_customer.last_name
@@ -70,6 +71,6 @@ class Public::OrdersController < ApplicationController
 
   private
   def order_params
-    params.require(:order).permit(:postal_code,:address,:name,:payment_method,:shipping_cost,:total_payment,:status,:customer_id)
+    params.require(:order).permit(:address_option, :address_id, :postal_code,:address,:name,:payment_method,:shipping_cost,:total_payment,:status,:customer_id)
   end
 end
