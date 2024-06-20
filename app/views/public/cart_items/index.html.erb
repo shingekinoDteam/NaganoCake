@@ -38,7 +38,7 @@
                   <%= form_with(model: cart_item, url: cart_item_path(cart_item), method: :patch, local: true, class: "select-form d-inline") do |form| %>
                     <%= form.hidden_field :customer_id, value: current_customer.id %>
                     <%= form.hidden_field :item_id, value: cart_item.item.id %>
-                    <%= form.select :amount, (1..50).map { |i| [i, i] }, {}, class: "form-select-sm" %>
+                    <%= form.select :amount, (1..100).map { |i| [i, i] }, {}, class: "form-select-sm" %>
                     <%= form.submit "変更", class: "btn btn-sm btn-primary ml-2" %>
                   <% end %>
                 </td>
@@ -57,7 +57,7 @@
   </div>
   <div class="row row-content-middle mt-3">
     <div class="col-md-7">
-      <%= link_to '買い物を続ける', root_path, class: "btn", style: "background-color: #1A120B; color: #E5E5CB;" %>
+      <%= link_to '買い物を続ける', root_path, class: "btn  btn-lg", style: "background-color: #1A120B; color: #E5E5CB;" %>
     </div>
     <div class="col-md-3">
       <table class="table table-hover table-inverse table-bordered" style="border-color: #3C2A21; margin-left: 0;">
@@ -72,9 +72,11 @@
       </table>
     </div>
   </div>
+  <% if @cart_items.present? %>
   <div class="row mt-5 row-content">
-    <div class="col-md-3 text-center">
-      <%= link_to '情報入力へ進む', new_order_path, class: "btn", style: "background-color: #1A120B; color: #E5E5CB;" %>
+    <div class="col-md-10 text-center">
+      <%= link_to '情報入力へ進む', new_order_path, class: "btn btn-lg", style: "background-color: #1A120B; color: #E5E5CB;" %>
     </div>
   </div>
+  <% end %>
 </div>
