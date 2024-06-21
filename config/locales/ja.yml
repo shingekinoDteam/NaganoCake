@@ -23,6 +23,12 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+  activerecord:
+    attributes:
+      order:
+        postal_code: "郵便番号（ハイフンなし）"
+        address: "住所"
+        name: "宛名"
   date:
     abbr_day_names:
     - 日
