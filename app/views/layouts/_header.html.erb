@@ -1,26 +1,125 @@
 <header>
-  <div class="search-container">
-  <input type="text" placeholder="Search">
-  <span class="search-icon">&#128269;</span>
-　</div>
-
-  <h1><%= link_to "LOGO", root_path %></h1>
-  <% if admin_signed_in? %>
-    <%= link_to "商品一覧", admin_items_path %>
-    <%= link_to "会員一覧", admin_customers_path %>
-    <%= link_to "注文履歴一覧", admin_path %>
-    <%= link_to "ジャンル一覧", admin_genres_path %>
-    <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
-  <% elsif customer_signed_in? %>
-    <%= link_to "マイページ", customers_my_page_path %>
-    <%= link_to "商品一覧", items_path %>
-    <%= link_to "カート", cart_items_path %>
-    <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>
-    ようこそ <%= current_customer.last_name %> さん
-  <% else %>
-    <%= link_to "About", about_path %>
-    <%= link_to "商品一覧", items_path %>
-    <%= link_to "新規登録", new_customer_registration_path %>
-    <%= link_to "ログイン", new_customer_session_path %>
-  <% end %>
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3f312b;">
+    <div class="container">
+      <a class="navbar-brand" href="/"><span><%= image_tag "NaganoCake.png", size: "100x100" %></span></a>
+      <% if customer_signed_in? %>
+      <p class="mx-5 text-light">ようこそ、 <%= current_customer.last_name %> さん！</p>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <div class="d-flex flex-column w-100">
+          <ul class="navbar-nav my-2 ml-auto flex-row">
+            
+          <% if admin_signed_in? %>
+            <li class="nav-item ml-3">
+              <%= link_to admin_items_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-cake-candles"></i> 商品一覧
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to admin_customers_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-users-gear"></i> 会員一覧
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to admin_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-kitchen-set"></i> 注文履歴一覧
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to admin_genres_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-tags"></i> ジャンル一覧
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-right-from-bracket"></i> ログアウト
+              <% end %>
+            </li>
+            
+          <% elsif customer_signed_in? %>
+            <li class="nav-item ml-3">
+              <%= link_to customers_my_page_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-user-large"></i> マイページ
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to items_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-cake-candles"></i> 商品一覧
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to cart_items_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-cart-shopping"></i> カート
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to destroy_customer_session_path, method: :delete, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-right-from-bracket"></i> ログアウト
+              <% end %>
+            </li>
+            
+          <% else %>
+            <li class="nav-item ml-3">
+              <%= link_to about_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-house-chimney"></i> About
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to items_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-cake-candles"></i> 商品一覧
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to new_customer_registration_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-user-plus"></i> 新規登録
+              <% end %>
+            </li>
+            <li class="nav-item ml-3">
+              <%= link_to new_customer_session_path, class: 'nav-link text-light' do %>
+                <i class="mr-1 fa-solid fa-right-to-bracket"></i> ログイン
+              <% end %>
+            </li>
+          <% end %>
+          
+          </ul>
+          <form class="form-inline my-2 mt-lg-0 ml-auto">
+            <input class="form-control mr-sm-2" type="search" placeholder="商品検索" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </nav>
 </header>
+
+
+
+<!--<header>-->
+<!--  <div class="search-container">-->
+<!--  <input type="text" placeholder="Search">-->
+<!--  <span class="search-icon">&#128269;</span>-->
+<!--　</div>-->
+
+<!--  <%= link_to image_tag("NaganoCake.png", size: "100x100"), root_path %>-->
+<!--  <% if admin_signed_in? %>-->
+<!--    <%= link_to "商品一覧", admin_items_path %>-->
+<!--    <%= link_to "会員一覧", admin_customers_path %>-->
+<!--    <%= link_to "注文履歴一覧", admin_path %>-->
+<!--    <%= link_to "ジャンル一覧", admin_genres_path %>-->
+<!--    <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>-->
+<!--  <% elsif customer_signed_in? %>-->
+<!--    <%= link_to "マイページ", customers_my_page_path %>-->
+<!--    <%= link_to "商品一覧", items_path %>-->
+<!--    <%= link_to "カート", cart_items_path %>-->
+<!--    <%= link_to "ログアウト", destroy_customer_session_path, method: :delete %>-->
+<!--    ようこそ <%= current_customer.last_name %> さん-->
+<!--  <% else %>-->
+<!--    <%= link_to "About", about_path %>-->
+<!--    <%= link_to "商品一覧", items_path %>-->
+<!--    <%= link_to "新規登録", new_customer_registration_path %>-->
+<!--    <%= link_to "ログイン", new_customer_session_path %>-->
+<!--  <% end %>-->
+<!--</header>-->

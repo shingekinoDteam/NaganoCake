@@ -6,13 +6,14 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <script src="https://kit.fontawesome.com/a7eeb2be5e.js" crossorigin="anonymous"></script>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100" style="background-color: #e8c59c;">
     <%= render 'layouts/header' %>
-    <main>
+    <main class="mb-auto">
       <% flash.each do |message_type, message| %>
 　　    <div class="alert alert-success"><%= message %></div>
       <% end %>
