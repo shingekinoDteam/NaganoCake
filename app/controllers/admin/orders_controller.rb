@@ -13,8 +13,10 @@ class Admin::OrdersController < ApplicationController
         @order.order_details.update_all(making_status: "waiting_manufacture")
       end
       update_order_status(@order)
+      flash[:notice] = "注文ステータスを更新しました"
       redirect_to admin_order_path(@order)
     else
+      flash[:alert] = "注文ステータスの更新に失敗しました"
       render :show
     end
   end
@@ -24,16 +26,18 @@ class Admin::OrdersController < ApplicationController
     if @order_detail.update(order_detail_params)
       @order = @order_detail.order
       update_order_status(@order)
+      flash[:notice] = "製作ステータスを更新しました"
       redirect_to admin_order_path(@order)
     else
       @order = @order_detail.order
       @order_details = @order.order_details
+      flash[:alert] = "製作ステータスの更新に失敗しました"
       render :show
     end
   end
 
   private
-  
+
   def order_params
     params.require(:order).permit(:status)
   end
