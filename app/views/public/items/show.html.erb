@@ -35,7 +35,9 @@
                 <%= f.select :amount, options_for_select((1..100).map { |i| [i, i] }), {}, class: "form-control mr-5", style: "width: 100px;" %>
               </div>
               <%= f.hidden_field :item_id, value: @item.id %>
-              <%= f.submit "カートに入れる", class: "btn btn-lg btn-primary my-4", style: "background-color: #1A120B; color: #E5E5CB;" %>
+              <%= button_tag :type => "submit", :class =>"btn btn-lg btn-primary my-4", style: "background-color: #1A120B; color: #E5E5CB;" do %>
+                <i class="fa-solid fa-cart-arrow-down mr-2"></i> カートに入れる
+              <% end %>
             <% end %>
           <% else %>
             <p>大変申しわけございません。</br>こちらの商品は、現在 <strong class="text-danger">品切れ</strong> でございます。</p>
