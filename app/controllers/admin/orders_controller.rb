@@ -12,9 +12,14 @@ class Admin::OrdersController < ApplicationController
       if @order.status == "confirm_payment"
         @order.order_details.update_all(making_status: "waiting_manufacture")
       end
-      update_order_status(@order)
-      flash[:notice] = "注文ステータスを更新しました"
-      redirect_to admin_order_path(@order)
+      if @order.status == "finish_prepare"
+        flash[:notice] = "注文ステータスを更新しました"
+        redirect_to admin_path
+      else
+        update_order_status(@order)
+        flash[:notice] = "注文ステータスを更新しました"
+        redirect_to admin_order_path(@order)
+      end
     else
       flash[:alert] = "注文ステータスの更新に失敗しました"
       render :show
