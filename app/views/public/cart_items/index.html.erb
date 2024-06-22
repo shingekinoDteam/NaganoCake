@@ -56,7 +56,9 @@
   </div>
   <div class="row row-content-middle mt-3">
     <div class="col-md-7">
-      <%= link_to '買い物を続ける', root_path, class: "btn  btn-lg", style: "background-color: #1A120B; color: #E5E5CB;" %>
+      <%= link_to root_path, class: 'btn btn-lg', style: "background-color: #1A120B; color: #E5E5CB;" do %>
+        <i class="fa-solid fa-cart-arrow-down mr-2"></i> 買い物を続ける
+      <% end %>
     </div>
     <div class="col-md-3">
       <table class="table table-hover table-inverse table-bordered" style="border-color: #3C2A21; margin-left: 0;">
@@ -74,7 +76,9 @@
   <% if @cart_items.present? %>
   <div class="row mt-5 row-content">
     <div class="col-md-10 text-center">
-      <%= link_to '情報入力へ進む', new_order_path, class: "btn btn-lg", style: "background-color: #1A120B; color: #E5E5CB;" %>
+      <%= link_to new_order_path, class: 'btn btn-lg', style: "background-color: #1A120B; color: #E5E5CB;" do %>
+        <i class="fa-solid fa-address-card mr-2"></i> 情報入力へ進む
+      <% end %>
     </div>
   </div>
   <% end %>

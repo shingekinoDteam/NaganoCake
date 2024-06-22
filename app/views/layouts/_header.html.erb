@@ -1,9 +1,11 @@
-<header>
+<header class="mb-5">
   <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #3f312b;">
     <div class="container">
       <a class="navbar-brand" href="/"><span><%= image_tag "NaganoCake.png", size: "100x100" %></span></a>
       <% if customer_signed_in? %>
-      <p class="mx-5 text-light">ようこそ、 <%= current_customer.last_name %> さん！</p>
+        <p class="mx-5 text-light">ようこそ、 <%= current_customer.last_name %> さん！</p>
+      <% elsif admin_signed_in? %>
+        <p class="mx-5 text-danger font-weight-bold h3" style="text-shadow: 1px 2px 3px #203744;">管理者として<br>ログイン中 <i class="fa-solid fa-triangle-exclamation text-warning"></i></p>
       <% end %>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
