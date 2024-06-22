@@ -15,8 +15,14 @@
               <%= order.address %><br>
               <%= order.customer.last_name%><%= order.customer.first_name %>
           </td>
-          <td></td>
-          <td></td>
+          <td>
+          <ul class="list-unstyled">
+            <% order.order_details.each do |order_detail|  %>
+            <li><%= order_detail.item.name %></li>
+            <% end %>
+          </ul>
+          </td>
+          <td><%= order.total_payment %>円</td>
           <td><%= order.status_i18n %></td>
           <td><%= link_to '表示する', order_path(order.id), class: 'btn btn-primary' %></td>
       </tr>
