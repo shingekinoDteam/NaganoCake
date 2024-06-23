@@ -44,14 +44,14 @@
       </tr>
     </thead>
     <tbody>
-      <% Address.all.each do |aderess| %>
+      <% @customer_address.each do |adderess| %>
       <tr>
-        <td style="width: 15%"><%= aderess.postal_code %></td>
-        <td style="width: 40%"><%= aderess.address %></td>
-        <td style="width: 15%"><%= aderess.name %></td>
+        <td style="width: 15%"><%= adderess.postal_code %></td>
+        <td style="width: 40%"><%= adderess.address %></td>
+        <td style="width: 15%"><%= adderess.name %></td>
         <td style="width: 35%">
-          <%= link_to '編集する', edit_address_path(aderess.id), class: "btn btn-sm btn-success" %>
-          <%= link_to '削除する', address_path(aderess.id), method: :delete, class: "btn btn-sm btn-danger" %>
+          <%= link_to '編集する', edit_address_path(adderess.id), class: "btn btn-sm btn-success" %>
+          <%= link_to '削除する', address_path(adderess.id), method: :delete, class: "btn btn-sm btn-danger" %>
         </td>
       </tr>
       <% end %>

@@ -14,7 +14,7 @@ class Admin::OrdersController < ApplicationController
       end
       if @order.status == "finish_prepare"
         flash[:notice] = "注文ステータスを更新しました"
-        redirect_to admin_path
+        redirect_to admin_order_path(@order)
       else
         update_order_status(@order)
         flash[:notice] = "注文ステータスを更新しました"

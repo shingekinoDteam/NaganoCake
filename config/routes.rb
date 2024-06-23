@@ -55,7 +55,8 @@ Rails.application.routes.draw do
 
   # devise_for :customers
   devise_for :customers, controllers: {
-    sessions: 'public/customers/sessions'
+    sessions: 'public/customers/sessions',
+    registrations: 'public/customers/registrations'
   }
 # 管理者用
 # URL /admin/sign_in ...
