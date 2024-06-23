@@ -37,8 +37,9 @@
           <%= f.radio_button :address_option, 1 %>
           <%= f.label :address_option_1,"登録済住所から選択" %>
         </div>
-        <div class="col offset-md-1">
-          <%= f.select :address_id, options_from_collection_for_select(@addresses, :id, :address_was) %>
+
+        <div>
+          <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses.all, :id, :address_was) %>
         </div>
 
     　　<div class="col mt-2">

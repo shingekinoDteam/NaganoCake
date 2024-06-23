@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   has_many :order_details, dependent: :destroy
   belongs_to :customer
-  
+
 
   validates :postal_code, presence: true, length: { is: 7 }
   validates :address, presence: true, length: { maximum: 100 }
