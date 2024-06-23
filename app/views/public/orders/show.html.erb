@@ -1,17 +1,16 @@
 <div class="container">
-  <div class="row">
-    <div class="col-xs-8">
     <h5>注文履歴詳細</h5>
-
+  <div class="row">
+    <div class="col-md-8">
       <b>注文情報</b>
-        <table class='table table-hover table-inverse'>
+        <table class='table table-hover table-bordered'>
           <tbody>
             <tr>
-              <td>注文日</td>
+              <th style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">注文日</th>
               <td><%= @order.created_at.strftime("%Y/%m/%d") %></td>
             </tr>
             <tr>
-              <td>配送先</td>
+              <th style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">配送先</th>
               <td>
                 〒<%= @order.postal_code %><br>
                 <%= @order.address %><br>
@@ -20,59 +19,60 @@
             </tr>
 
             <tr>
-                <td>支払方法</td>
+                <th style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">支払方法</th>
                 <td><%= @order.payment_method_i18n %></td>
             </tr>
 
             <tr>
-                <td>ステータス</td>
+                <th style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">ステータス</th>
                 <td><%= @order.status_i18n %></td>
             </tr>
           </tbody>
         </table>
     </div>
-    <div class="col-xs-3">
+    <div class="col-md-3 offset-md-1">
       <b>請求情報</b>
-        <table class='table table-hover table-inverse'>
+        <table class='table table-hover table-bordered'>
           <tbody>
             <tr>
-              <td>商品合計</td>
-              <td><%= (@order.total_payment - @order.shipping_cost) %>円</td>
+              <td style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">商品合計</td>
+              <td><%= (@order.total_payment - @order.shipping_cost).to_s(:delimited) %></td>
             </tr>
             <tr>
-              <td>配送料</td>
-              <td><%= @order.shipping_cost %>円</td>
+              <td style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">配送料</td>
+              <td><%= @order.shipping_cost.to_s(:delimited) %></td>
             </tr>
             <tr>
-              <td><b>ご請求額</b></td>
-              <td><%= @order.total_payment %>円</td>
+              <th style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">ご請求額</th>
+              <td><%= @order.total_payment.to_s(:delimited) %></td>
             </tr>
           </tbody>
         </table>
     </div>
-
   </div>
-  <div class="col-xs-8">
-    <b>注文内容</b>
-    <table class='table table-hover table-inverse'>
-      <thead>
-        <tr>
-          <th>商品</th>
-          <th >単価（税込）</th>
-          <th >個数</th>
-          <th >小計</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% @order_details.each do |order_detail| %>
+
+    <div class="col-xs-12">
+      <b>注文内容</b>
+      <table class='table table-hover table-bordered'>
+        <thead class="mw-100" style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">
           <tr>
-            <td><%= order_detail.item.name %></td>
-            <td><%= (order_detail.item.price * 1.1).floor.to_s(:delimited) %>円</td>
-            <td><%= order_detail.amount %></td>
-            <td><%= (order_detail.item.price * order_detail.amount * 1.1).floor.to_s(:delimited) %>円</td>
+            <th class="col-md-6">商品</th>
+            <th class="col-md-3">単価（税込）</th>
+            <th class="col-md-2">個数</th>
+            <th class="col-md-1">小計</th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <% @order_details.each do |order_detail| %>
+            <tr>
+              <td><%= order_detail.item.name %></td>
+              <td><%= (order_detail.item.price * 1.1).floor.to_s %></td>
+              <td><%= order_detail.amount %></td>
+              <td><%= (order_detail.item.price * order_detail.amount * 1.1).floor.to_s %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
   </div>
 </div>
