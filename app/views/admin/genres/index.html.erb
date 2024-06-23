@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-3">
-    <h5>ジャンル一覧・追加</h5>
+    <h5 class= "mt-3">ジャンル一覧・追加</h5>
       <%=form_with model: @genre,url: admin_genres_path, method: :post do |f| %>
         <div class="mt-3 mb-3">
           <td><%= f.label :"ジャンル名", class: "mr-3" %></td>
@@ -11,7 +11,7 @@
       <% end %>
 
       <table class="table">
-        <thead class="thead-light">
+        <thead class="mw-100" style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">
           <th class="text-right">ジャンル</th>
           <th></th>
         </thead>
