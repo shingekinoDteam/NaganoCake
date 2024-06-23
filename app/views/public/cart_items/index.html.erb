@@ -15,7 +15,7 @@
           </div>
         </div>
         <table class="table table-hover table-inverse table-bordered custom-table" style="border-color: #3C2A21;">
-          <thead style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">
+          <thead style="background-color: rgba(105, 105, 105, 0.8); color: #E5E5CB; white-space: nowrap;">
             <tr align=center >
               <th scope="col" style="width: 40%; white-space: nowrap;">商品名</th>
               <th scope="col" style="width: 10%; white-space: nowrap;">単価（税込）</th>
@@ -24,7 +24,7 @@
               <th scope="col" style="width: 10%"></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style="background-color: rgba(255, 255, 249, 0.8); color: #000;" >
             <% @cart_items.each do |cart_item| %>
               <tr id="cart_item_<%= cart_item.id %>">
                 <td class="align-middle">
@@ -56,15 +56,15 @@
   </div>
   <div class="row row-content-middle mt-3">
     <div class="col-md-7">
-      <%= link_to root_path, class: 'btn btn-lg', style: "background-color: #1A120B; color: #E5E5CB;" do %>
+      <%= link_to root_path, class: 'btn btn-lg', style: "background-color: #00fa9a; color: #ffffe0;" do %>
         <i class="fa-solid fa-cart-arrow-down mr-2"></i> 買い物を続ける
       <% end %>
     </div>
     <div class="col-md-3">
       <table class="table table-hover table-inverse table-bordered" style="border-color: #3C2A21; margin-left: 0;">
-        <tbody>
+        <tbody style="background-color: rgba(255, 255, 249, 0.8); color: #000;" >
           <tr>
-            <th style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">合計金額</th>
+            <th style="background-color: rgba(105, 105, 105, 0.8); color: #E5E5CB; white-space: nowrap;">合計金額</th>
             <td class="total-area">
               <%= number_to_currency(@total_amount, unit: "￥", format: "%u%n", precision: 0) %>
             </td>
@@ -76,7 +76,7 @@
   <% if @cart_items.present? %>
   <div class="row mt-5 row-content">
     <div class="col-md-10 text-center">
-      <%= link_to new_order_path, class: 'btn btn-lg', style: "background-color: #1A120B; color: #E5E5CB;" do %>
+      <%= link_to new_order_path, class: 'btn btn-lg', style: "background-color: #00fa9a; color: #ffffe0;" do %>
         <i class="fa-solid fa-address-card mr-2"></i> 情報入力へ進む
       <% end %>
     </div>
