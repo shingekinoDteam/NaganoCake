@@ -1,34 +1,39 @@
 ja:
-  enums:
-    order:
-      status:
-        wait_payment: "入金待ち"
-        confirm_payment: "入金確認"
-        making: "製作中"
-        preparing_ship: "発送準備中"
-        finish_prepare: "発送済み"
-      payment_method:
-        credit_card: "クレジットカード"
-        transfer: "銀行振込"
-    order_detail:
-      making_status:
-        impossible_manufacture: "着手不可"
-        waiting_manufacture: "製作待ち"
-        manufacturing: "製作中"
-        finish: "製作完了"
   activerecord:
+    errors:
+      models:
+        item:
+          attributes:
+            genre:
+              blank: "を選択してください"
+            image:
+              blank: "を選択してください"
+              content_type: "の形式は%{types}のいずれかでなければなりません"
+    attributes:
+      order:
+        postal_code: "郵便番号（ハイフンなし）"
+        address: "住所"
+        name: "宛名"
+      item:
+        name: "「商品名」"
+        introduction: "「商品説明」"
+        price: "「税抜価格」"
+        genre: "「ジャンル」"
+        image: "「商品画像」"
+      genre:
+        name: "ジャンル名"
+    models:
+      order: "注文"
+      item: "商品"
+      genre: "ジャンル"
     errors:
       messages:
         record_invalid: 'バリデーションに失敗しました: %{errors}'
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
-  activerecord:
-    attributes:
-      order:
-        postal_code: "郵便番号（ハイフンなし）"
-        address: "住所"
-        name: "宛名"
+        attached: "を選択してください"
+        content_type: "の形式は%{types}のいずれかでなければなりません"
   date:
     abbr_day_names:
     - 日

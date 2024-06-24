@@ -2,7 +2,7 @@
   <h2 class="text-center my-5">商品編集</h2>
   <% if @item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this obj from being saved:</h2>
+      <h2><%= @item.errors.count %> 件 のエラーが発生しました</h2>
       <ul>
         <% @item.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -49,11 +49,11 @@
       <%= f.label :is_active, '販売ステータス', class: 'col-sm-4 col-form-label' %>
       <div class="col-sm-8">
         <div class="custom-control custom-radio custom-control-inline">
-          <%= f.radio_button :is_active, true, checked: @item.is_active, class: 'custom-control-input', id: 'is_active-on-sale' %>
+          <%= f.radio_button :is_active, 'on_sale', checked: @item.is_active == 'on_sale', class: 'custom-control-input', id: 'is_active-on-sale' %>
           <%= f.label :is_active, '販売中', class: 'custom-control-label font-weight-bolder text-success', for: 'is_active-on-sale' %>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-          <%= f.radio_button :is_active, false, checked: !@item.is_active, class: 'custom-control-input', id: 'is_active-off-sale' %>
+          <%= f.radio_button :is_active, 'off_sale', checked: @item.is_active == 'off_sale', class: 'custom-control-input', id: 'is_active-off-sale' %>
           <%= f.label :is_active, '販売停止中', class: 'custom-control-label font-weight-bolder text-secondary', for: 'is_active-off-sale' %>
         </div>
       </div>
