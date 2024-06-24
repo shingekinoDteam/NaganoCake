@@ -2,7 +2,7 @@
   <h2 class="text-center my-5">商品編集</h2>
   <% if @item.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this obj from being saved:</h2>
+      <h2><%= @item.errors.count %> 件 のエラーが発生しました</h2>
       <ul>
         <% @item.errors.full_messages.each do |message| %>
           <li><%= message %></li>

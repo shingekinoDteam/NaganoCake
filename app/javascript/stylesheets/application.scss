@@ -1,25 +1,19 @@
 @use '~bootstrap/scss/bootstrap';
 
 #error_explanation {
-  width: 300px;
+  width: 400px;
   border: 2px solid #8b0000;
   padding: 7px;
-  padding-bottom: 0;
-  margin-bottom: 20px;
   background-color: #fff;
-  margin: 0 auto;
-  
+  margin: 50px auto;
+  box-shadow: 0px 5px 12px #708090, -6px -6px 12px #fff;
 }
 
 #error_explanation h2 {
-  text-align: left;
+  text-align: center;
   font-weight: bold;
-  padding: 5px 5px 5px 15px;
-  padding-top: 5px;
-  padding-right: 5px;
-  padding-bottom: 5px;
-  padding-left: 15px;
-  font-size: 12px;
+  padding: 5px 5px 5px 5px;
+  font-size: 15px;
   margin: -7px;
   margin-top: -7px;
   margin-right: -7px;
@@ -29,6 +23,11 @@
   background-color: #8b0000;
   color: #fff;
 }
+
+#error_explanation ul {
+  margin: 7px auto;
+}
+
 
 .background {
   background-image: url("/images/NaganoCake_bgi.png");
