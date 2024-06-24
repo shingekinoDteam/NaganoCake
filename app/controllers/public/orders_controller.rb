@@ -1,6 +1,6 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
-
+  before_action :no_cart_item
   def new
     @order = Order.new
     @addresses = current_customer.addresses
@@ -75,5 +75,12 @@ class Public::OrdersController < ApplicationController
   private
   def order_params
     params.require(:order).permit(:address_option, :address_id, :postal_code,:address,:name,:payment_method,:shipping_cost,:total_payment,:status,:customer_id)
+  end
+end
+
+def no_cart_item
+  if current_customer.cart_items.length < 1
+    flash[:alert] = "カートに商品がありません"
+    redirect_to cart_items_path
   end
 end
