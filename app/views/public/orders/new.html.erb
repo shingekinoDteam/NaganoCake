@@ -12,7 +12,7 @@
 　　<h4>注文情報入力</h4>
     </div>
 
-    <%= form_with model: @order, url: "/orders/confirm", method: :post, local: true do |f| %>
+    <%= form_with model: @order, url: "/orders/confirm", method: :post do |f| %>
 
       <h5>支払方法</h5>
       <div class="col">
@@ -60,7 +60,7 @@
             <%= f.label :address, '住所' %>
           </div>
           <div class="col-6">
-            <%= f.text_field :address, class: "form-control rounded " %>
+            <%= f.text_field :address, class: "form-control rounded" %>
           </div>
         </div>
 
@@ -78,3 +78,34 @@
     <% end %>
   </div>
 </div>
+<script>
+  var addressOptionInputs = document.getElementsByName('order[address_option]');
+
+  function handleAddressOptionChange() {
+  var postalCodeInput = document.getElementById('order_postal_code');
+  var addressInput = document.getElementById('order_address');
+  var nameInput = document.getElementById('order_name');
+
+  if (this.value === '0' || this.value === '1') {
+      postalCodeInput.disabled = true;
+      addressInput.disabled = true;
+      nameInput.disabled = true;
+  } else {
+      postalCodeInput.disabled = false;
+      addressInput.disabled = false;
+      nameInput.disabled = false;
+    }
+  }
+
+  for (var i = 0; i < addressOptionInputs.length; i++) {
+    addressOptionInputs[i].addEventListener('change', handleAddressOptionChange);
+  }
+
+  // スクリプトの実行
+  for (var i = 0; i < addressOptionInputs.length; i++) {
+    if(addressOptionInputs[i].checked){
+      handleAddressOptionChange.call(addressOptionInputs[i]);
+      break;
+    }
+  }
+</script>
