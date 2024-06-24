@@ -1,4 +1,11 @@
 ja:
+  views:
+    pagination:
+      first: <i class="fas fa-angle-double-left"></i>
+      last: <i class="fas fa-angle-double-right"></i>
+      previous: <i class="fas fa-angle-left"></i>
+      next: <i class="fas fa-angle-right"></i>
+      truncate: "..."
   enums:
     order:
       status:
@@ -18,17 +25,51 @@ ja:
         finish: "製作完了"
   activerecord:
     errors:
-      messages:
-        record_invalid: 'バリデーションに失敗しました: %{errors}'
-        restrict_dependent_destroy:
-          has_one: "%{record}が存在しているので削除できません"
-          has_many: "%{record}が存在しているので削除できません"
-  activerecord:
+      models:
+        item:
+          attributes:
+            name:
+              blank: "を入力してください"
+            introduction:
+              blank: "を入力してください"
+            price:
+              blank: "を入力してください"
+              not_a_number: "は数値で入力してください"
+            genre_id: # ここを修正
+              blank: "を選択してください" # ここを修正
+            image:
+              blank: "を選択してください"
+              content_type: "の形式は%{types}のいずれかでなければなりません"
+        genre:
+          attributes:
+            name:
+              blank: "を入力してください"
     attributes:
       order:
         postal_code: "郵便番号（ハイフンなし）"
         address: "住所"
         name: "宛名"
+      item:
+        name: "「商品名」"
+        introduction: "「商品説明」"
+        price: "「税抜価格」"
+        genre: "「ジャンル」"
+        image: "「商品画像」"
+      genre:
+        name: "ジャンル名"
+    models:
+      order: "注文"
+      item: "商品"
+      genre: "ジャンル"
+    errors:
+      messages:
+        record_invalid: 'バリデーションに失敗しました: %{errors}'
+        restrict_dependent_destroy:
+          has_one: "%{record}が存在しているので削除できません"
+          has_many: "%{record}が存在しているので削除できません"
+        attached: "を選択してください"
+        content_type: "の形式は%{types}のいずれかでなければなりません"
+        blank: "を入力してください" # ここを追加
   date:
     abbr_day_names:
     - 日

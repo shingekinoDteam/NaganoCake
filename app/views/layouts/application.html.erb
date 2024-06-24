@@ -14,23 +14,23 @@
   <body class="d-flex flex-column vh-100" style="background-color: #ffffe0;">
     <%= render 'layouts/header' %>
     <main class="mb-auto background">
-      <div class="container">
-          <% if notice %>
-            <p class="m-5 alert alert-primary alert-dismissible mx-auto" style="box-shadow: 0px 5px 12px #cad4e2, -6px -6px 12px #fff">
-              <strong><%= notice %></strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </p>
-          <% end %>
-          <% if alert %>
-            <p class="m-5 alert alert-danger alert-dismissible" style="box-shadow: 0px 5px 12px #cad4e2, -6px -6px 12px #fff">
-              <strong><%= alert %></strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </p>
-          <% end %>
+      <div class="container" style="position: relative;">
+        <% if notice %>
+          <p class="m-5 alert alert-primary alert-dismissible mx-auto text-center" style="box-shadow: 0px 5px 12px #cad4e2, -6px -6px 12px #fff">
+            <strong><%= notice %></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </p>
+        <% end %>
+        <% if alert %>
+          <p class="m-5 alert alert-danger alert-dismissible text-center" style="box-shadow: 0px 5px 12px #cad4e2, -6px -6px 12px #fff">
+            <strong><%= alert %></strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </p>
+        <% end %>
       <%= yield %>
     </main>
     <%= render 'layouts/footer' %>
