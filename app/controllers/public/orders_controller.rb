@@ -1,6 +1,6 @@
 class Public::OrdersController < ApplicationController
   before_action :authenticate_customer!
-  before_action :no_cart_item
+  before_action :no_cart_item, only: [:new, :confirm, :show]
   def new
     @order = Order.new
     @addresses = current_customer.addresses
