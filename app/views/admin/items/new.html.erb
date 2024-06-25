@@ -1,2 +1,67 @@
-<h1>Admin::Items#new</h1>
-<p>Find me in app/views/admin/items/new.html.erb</p>
+<div class="container">
+  <h2 class="text-center my-5">商品新規登録</h2>
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @item.errors.count %> 件 のエラーが発生しました</h2>
+      <ul>
+        <% @item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form_with model: [:admin, @item], local: true, class: 'col-6 mx-auto' do |f| %>
+    <div class="form-group row my-4">
+      <%= f.label :image, '商品画像', class: 'col-sm-4 col-form-label' %>
+      <div class="col-sm-8">
+        <%= f.file_field :image, accept: "image/*", class: 'form-control', style: "outline: thick double #c0c0c0" %>
+      </div>
+    </div>
+    <div class="form-group row my-4">
+      <%= f.label :name, '商品名', class: 'col-sm-4 col-form-label' %>
+      <div class="col-sm-8">
+        <%= f.text_field :name, class: 'form-control', style: "outline: thick double #c0c0c0" %>
+      </div>
+    </div>
+    <div class="form-group row my-4">
+      <%= f.label :introduction, '商品説明', class: 'col-sm-4 col-form-label' %>
+      <div class="col-sm-8">
+        <%= f.text_area :introduction, class: 'form-control', style: "outline: thick double #c0c0c0", rows: 10 %>
+      </div>
+    </div>
+    <div class="form-group row my-4">
+      <%= f.label :genre_id, 'ジャンル', class: 'col-sm-4 col-form-label' %>
+      <div class="col-sm-8">
+        <%= f.select :genre_id, options_for_select(Genre.all.collect { |genre| [genre.name, genre.id] }, selected: @item.genre_id), { prompt: 'ジャンルを選択してください' }, { class: 'form-control', style: "outline: thick double #c0c0c0" } %>
+      </div>
+    </div>
+    <div class="form-group row my-4">
+      <%= f.label :price, '税抜価格', class: 'col-sm-4 col-form-label' %>
+      <div class="col-sm-8 input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">￥</span>
+        </div>
+        <%= f.number_field :price, class: 'form-control', style: "outline: thick double #c0c0c0" %>
+      </div>
+    </div>
+  
+    <div class="form-group row my-4">
+      <%= f.label :is_active, '販売ステータス', class: 'col-sm-4 col-form-label' %>
+      <div class="col-sm-8">
+        <div class="custom-control custom-radio custom-control-inline">
+          <%= f.radio_button :is_active, true, checked: @item.is_active, class: 'custom-control-input', id: 'is_active-on-sale' %>
+          <%= f.label :is_active, '販売中', class: 'custom-control-label font-weight-bolder text-success', for: 'is_active-on-sale' %>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline">
+          <%= f.radio_button :is_active, false, checked: !@item.is_active, class: 'custom-control-input', id: 'is_active-off-sale' %>
+          <%= f.label :is_active, '販売停止中', class: 'custom-control-label font-weight-bolder text-secondary', for: 'is_active-off-sale' %>
+        </div>
+      </div>
+    </div>
+    <div class="form-group row text-center my-4">
+      <div class="col-sm-8 offset-sm-3">
+        <%= f.submit '新規登録', class: "btn btn-lg", style: "background-color: #00fa9a; color: #ffffe0;" %>
+      </div>
+    </div>
+  <% end %>
+</div>

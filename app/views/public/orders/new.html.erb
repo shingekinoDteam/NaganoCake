@@ -1,2 +1,111 @@
-<h1>Public::Orders#new</h1>
-<p>Find me in app/views/public/orders/new.html.erb</p>
+<div class="container mt-5">
+  <div class="col-md-12">
+    <div class="mb-3 text-danger font-weight-bolder">
+      <% if @order.errors.any? %>
+        <%= @order.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @order.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+        <% end %>
+      </ul>
+      <% end %>
+　　<h4>注文情報入力</h4>
+    </div>
+
+    <%= form_with model: @order, url: "/orders/confirm", method: :post do |f| %>
+
+      <h5>支払方法</h5>
+      <div class="col">
+        <%= f.radio_button :payment_method, Order.payment_methods.key(0) ,checked: true %>
+        <%= f.label :payment_method_credit_card, "クレジットカード" %>
+      </div>
+      <div class="col mb-2">
+        <%= f.radio_button :payment_method, Order.payment_methods.key(1) %>
+        <%= f.label :payment_method_transfer, "銀行振込" %>
+      </div>
+
+      <h5>お届け先</h5>
+        <div class="col">
+          <%= f.radio_button :address_option, 0, checked: "checked" %>
+          <%= f.label  :address_option_0,"ご自身の住所" %><br>
+        </div>
+        <div class="col offset-md-1 mb-2">
+          〒<%= current_customer.postal_code + "　" + current_customer.address + "　" + current_customer.last_name + current_customer.first_name %>
+        </div>
+
+        <div class="col mt-3">
+          <%= f.radio_button :address_option, 1 %>
+          <%= f.label :address_option_1,"登録済住所から選択" %>
+        </div>
+
+        <div  class="col offset-md-1 mt-2", style="box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); border-radius: 5px; width: 500px;">
+          <%= f.select :address_id, options_from_collection_for_select(current_customer.addresses.all, :id, :address_was), {}, style: "box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); border-radius: 5px; width: 500px;" %>
+        </div>
+
+    　　<div class="col mt-2">
+          <%= f.radio_button :address_option, 2 %>
+          <%= f.label :address_option_2,'新しいお届け先' %><br>
+        </div>
+        <div class="row offset-md-1 my-2">
+          <div class="col-3">
+            <%= f.label :postal_code, "郵便番号（ハイフンなし）" %>
+          </div>
+          <div class="col-3">
+            <%= f.text_field :postal_code, class: "form-control rounded" %>
+          </div>
+        </div>
+
+        <div class="row offset-md-1 my-2">
+          <div class="col-3">
+            <%= f.label :address, '住所' %>
+          </div>
+          <div class="col-6">
+            <%= f.text_field :address, class: "form-control rounded" %>
+          </div>
+        </div>
+
+        <div class="row offset-md-1 my-2">
+          <div class="col-3">
+            <%= f.label :name, '宛名' %>
+          </div>
+          <div class="col-3">
+            <%= f.text_field :name, class: "form-control rounded" %>
+          </div>
+        </div>
+        <div class="text-center mb-2">
+          <%= f.submit '確認画面へ進む', class: "btn btn-primary" %>
+        </div>
+    <% end %>
+  </div>
+</div>
+<script>
+  var addressOptionInputs = document.getElementsByName('order[address_option]');
+
+  function handleAddressOptionChange() {
+  var postalCodeInput = document.getElementById('order_postal_code');
+  var addressInput = document.getElementById('order_address');
+  var nameInput = document.getElementById('order_name');
+
+  if (this.value === '0' || this.value === '1') {
+      postalCodeInput.disabled = true;
+      addressInput.disabled = true;
+      nameInput.disabled = true;
+  } else {
+      postalCodeInput.disabled = false;
+      addressInput.disabled = false;
+      nameInput.disabled = false;
+    }
+  }
+
+  for (var i = 0; i < addressOptionInputs.length; i++) {
+    addressOptionInputs[i].addEventListener('change', handleAddressOptionChange);
+  }
+
+  // スクリプトの実行
+  for (var i = 0; i < addressOptionInputs.length; i++) {
+    if(addressOptionInputs[i].checked){
+      handleAddressOptionChange.call(addressOptionInputs[i]);
+      break;
+    }
+  }
+</script>

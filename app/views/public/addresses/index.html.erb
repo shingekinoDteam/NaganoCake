@@ -1,2 +1,60 @@
-<h1>Public::Addresses#index</h1>
-<p>Find me in app/views/public/addresses/index.html.erb</p>
+<div class='container px-2 px-sm-0'>
+  <div class='row ml-5 pl-5 mt-3'>
+    <h1 style="font-size: 24px;">配送先登録/一覧</h1>
+  </div>
+  <% if @address.errors.any? %>
+    <%= @address.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @address.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form_with model: @address do |f| %>
+    <table class='table table-sm mt-3 mb-5 table-borderless'>
+      <tbody>
+        <tr>
+          <td scope="col" style="width: 25%"><%= f.label :郵便番号（ハイフンなし） %></td>
+          <td style="width: 25%"><%= f.text_field :postal_code, autofocus: true, autocomplete: "postal_code", class: "form-control form-control-sm" %></td>
+          <td style="width: 20%"></td>
+          <td style="width: 20%"></td>
+        </tr>
+        <tr>
+          <td scope="col" style="width: 25%"><%= f.label :住所 %></td>
+          <td colspan="2"><%= f.text_field :address, autofocus: true, autocomplete: "address", class: "form-control form-control-sm" %></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td scope="col" style="width: 25%"><%= f.label :宛名 %></td>
+          <td><%= f.text_field :name, autofocus: true, autocomplete: "name", class: "form-control form-control-sm" %></td>
+          <td></td>
+          <td><%= f.submit "新規登録",class: 'btn btn-sm btn-success btn-block' %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+  <table class='table mt-5 table-bordered' style="width: 80%">
+    <thead>
+      <tr class="table-active">
+        <td>郵便番号</td>
+        <td>住所</td>
+        <td>宛名</td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @customer_address.each do |adderess| %>
+      <tr>
+        <td style="width: 15%"><%= adderess.postal_code %></td>
+        <td style="width: 40%"><%= adderess.address %></td>
+        <td style="width: 15%"><%= adderess.name %></td>
+        <td style="width: 35%">
+          <%= link_to '編集する', edit_address_path(adderess.id), class: "btn btn-sm btn-success" %>
+          <%= link_to '削除する', address_path(adderess.id), method: :delete, class: "btn btn-sm btn-danger" %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

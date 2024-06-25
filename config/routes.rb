@@ -51,16 +51,19 @@ Rails.application.routes.draw do
 
   # 顧客用
 # URL /customers/sign_in ...
-devise_for :customers,skip: [:passwords], controllers: {
-  registrations: "public/registrations",
-  sessions: 'public/sessions'
-}
 
+
+  # devise_for :customers
+  devise_for :customers, controllers: {
+    sessions: 'public/customers/sessions',
+    registrations: 'public/customers/registrations'
+  }
 # 管理者用
 # URL /admin/sign_in ...
-devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
-  sessions: "admin/sessions"
-}
+
+
+
+  devise_for :admin
 # root to の後のコントローラをpublicに指定してある↓
   root to: 'public/homes#top'
   get 'about' => 'public/homes#about'
@@ -68,7 +71,7 @@ devise_for :admin, skip: [:registrations, :passwords] ,controllers: {
   get 'customers/unsubscribe' => 'public/customers#unsubscribe'
   get 'customers/withdraw' => 'public/customers#withdraw'
   get 'cart_items/destroy_all' => 'public/cart_items#destroy_all'
-  get 'orders/confirm' => 'public/orders#confirm'
+  post 'orders/confirm' => 'public/orders#confirm'
   get 'orders/thanks' => 'public/orders#thanks'
 
   get 'admin' => 'admin/homes#top'
@@ -81,20 +84,24 @@ scope module: :public do
   get 'customers/information/edit' => 'customers#edit'
   patch 'customers/information' => 'customers#update'
 
-  resources :cart_items, only: [:index, :update, :destroy]
+  resources :cart_items, only: [:index, :create, :update, :destroy] do
+    collection do
+      delete 'destroy_all'
+    end
+  end
+
   resources :orders, only: [:new, :create, :index, :show]
   resources :addresses, only: [:index, :edit, :create, :update, :destroy]
 end
 
-
-namespace :admin do
-  resources :items, only: [:index, :new, :create, :show, :edit,  :update]
-  resources :genres, only: [:index, :create, :edit,  :update]
-  resources :customers, only: [:index, :show, :edit,  :update]
-  resources :orders, only: [:show,  :update] do
-    resources :order_details, only: [:update]
+  namespace :admin do
+    resources :items, only: [:index, :new, :create, :show, :edit, :update]
+    resources :genres, only: [:index, :create, :edit, :update]
+    resources :customers, only: [:index, :show, :edit, :update]
+    resources :orders, only: [:show, :update] do
+      patch 'order_details/:id', to: 'orders#update_order_detail', as: 'update_order_detail'
+    end
   end
-end
-
+get '/genre/search' => 'searches#genre_search'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

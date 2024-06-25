@@ -1,2 +1,53 @@
-<h1>Public::Homes#top</h1>
-<p>Find me in app/views/public/homes/top.html.erb</p>
+<div class='container px-5 px-sm-0 my-5'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <table class='table table-hover table-bordered'>
+        <thead class="mw-100" style="background-color: rgba(60, 42, 33, 0.5); color: #E5E5CB; white-space: nowrap;">
+          <tr>
+            <!--検索機能 未実装-->
+            <th class="text-center">ジャンル検索</th>
+          </tr>
+        </thead>
+        <tbody class="min-1000px border">
+          <% @genres.each do |genre| %>
+            <tr>
+              <!--現状はジャンル名表示だけ、linkなし-->
+              <td class="border-0"><%= link_to genre.name, genre_search_path(genre_id: genre.id), method: :get %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <div class='col-md-8' style="background-image: url('<%= asset_path 'frame.png' %>'); background-size: 750px 250px; background-repeat: no-repeat;">
+  <div class='my-5 ml-5 h3 text-secondary' style="text-shadow: #FC0 1px 0 10px;">～ ようこそ、<strong>ながのCAKE</strong> へ！ ～<br/>
+  このサイトは、ケーキ販売のECサイトになります。<br/>
+  会員でない方も商品の閲覧はできますが、<br/>
+  購入には会員登録が必要になります。</div>
+  </div>
+  <div class='col-md-3'></div>
+  <div class='col-md-8'>
+    <h3 class="mt-5">新着商品</h3>
+    <div class="row">
+      <% @items.order(created_at: :desc).limit(4).each do |item| %>
+        <div class="col">
+          <% if item.image.attached? %>
+            <%= link_to item_path(item) do %>
+              <%= image_tag item.image.variant(resize_to_limit: [100, 200]) %>
+            <% end %>
+          <% end %>
+          <div><%= link_to item.name, item_path(item) %></div>
+          <div class="mb-3">¥<%= item.price %></div>
+        </div>
+      <% end %>
+      <div class="mb-3 mt-3">
+    　<%= link_to(items_path) do %>
+        <div>
+          全ての商品を見る＞
+        </div>
+      <% end %>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+

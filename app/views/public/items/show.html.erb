@@ -1,2 +1,49 @@
-<h1>Public::Items#show</h1>
-<p>Find me in app/views/public/items/show.html.erb</p>
+<div class='container px-5 px-sm-0 my-5'>
+  <div class='row'>
+    <div class='col-md-3'>
+      <table class='table table-hover table-bordered'>
+        <thead class="mw-100" style="background-color: rgba(105, 105, 105, 0.8); color: #E5E5CB; white-space: nowrap;">
+          <tr>
+            <th class="text-center">ジャンル検索</th>
+          </tr>
+        </thead>
+        <tbody class="min-1000px border">
+          <% @genres.each do |genre| %>
+            <tr>
+              <td class="border-0"><%= link_to genre.name, genre_search_path(genre_id: genre.id), method: :get %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <div class='col-md-8 offset-md-1'>
+      <div class="row">
+        <div class="col-md-4">
+          <% if @item.image.attached? %>
+            <%= image_tag @item.image, class: 'img-fluid' %>
+          <% end %>
+        </div>
+        <div class="col-md-8">
+          <h2 class="mb-4"><%= @item.name %></h2>
+          <p><%= @item.introduction %></p>
+          <p class="h4 my-4"><strong>￥<%= @tax_included_price.to_s(:delimited) %></strong> <small class="text-muted" style="font-size: 60%;">(税込)</small></p>
+          <% if @item.is_active %>
+            <%= form_with model: CartItem.new, url: cart_items_path, local: true, class: "form-inline" do |f| %>
+              <div class="form-group my-4">
+                <%= f.label :amount, "個数選択", class: "mr-2" %>
+                <%= f.select :amount, options_for_select((1..100).map { |i| [i, i] }), {}, class: "form-control mr-5", style: "width: 100px;" %>
+              </div>
+              <%= f.hidden_field :item_id, value: @item.id %>
+              <%= button_tag :type => "submit", :class =>"btn btn-lg my-4", style: "background-color: #00fa9a; color: #ffffe0;" do %>
+                <i class="fa-solid fa-cart-arrow-down mr-2"></i> カートに入れる
+              <% end %>
+            <% end %>
+          <% else %>
+            <p>大変申しわけございません。</br>こちらの商品は、現在 <strong class="text-danger">品切れ</strong> でございます。</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

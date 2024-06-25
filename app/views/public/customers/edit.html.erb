@@ -1,2 +1,62 @@
-<h1>Public::Customers#edit</h1>
-<p>Find me in app/views/public/customers/edit.html.erb</p>
+<div class='container px-2 px-sm-0'>
+  <div class='row ml-5 pl-5 mt-3'>
+    <h1 style="background-color: #dcdcdc; font-size: 24px;">会員情報編集</h1>
+  </div>
+  <% if current_customer.errors.any? %>
+    <%= current_customer.errors.count %>件のエラーが発生しました
+    <ul>
+      <% current_customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+  <%= form_with(model: current_customer, url: customers_information_path(current_customer), local: true) do |f| %>
+    <table class='mt-3'>
+      <tbody>
+        <tr>
+          <td scope="col"><%= f.label :氏名 %></td>
+          <td><%= f.text_field :last_name, autofocus: true, autocomplete: "last_name", class: "form-control form-control-sm" %></td>
+          <td><%= f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "form-control form-control-sm" %></td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td scope="col"><%= f.label :フリガナ %></td>
+          <td><%= f.text_field :last_name_kana, autofocus: true, autocomplete: "last_name_kana", class: "form-control form-control-sm" %></td>
+          <td><%= f.text_field :first_name_kana, autofocus: true, autocomplete: "first_name_kana", class: "form-control form-control-sm" %></td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td scope="col"><%= f.label :郵便番号 %></td>
+          <td><%= f.text_field :postal_code, autofocus: true, autocomplete: "postal_code", class: "form-control form-control-sm" %></td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td scope="col"><%= f.label :住所 %></td>
+          <td colspan="5" class="col-xs-6"><%= f.text_field :address, autofocus: true, autocomplete: "address", class: "form-control form-control-sm" %></td>
+        </tr>
+
+        <tr>
+          <td scope="col"><%= f.label :電話番号 %></td>
+          <td><%= f.text_field :telephone_number, autofocus: true, autocomplete: "telephone_number", class: "form-control form-control-sm" %></td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td scope="col"><%= f.label :メールアドレス %></td>
+          <td><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-sm" %></td>
+          <td></td>
+        </tr>
+
+        <tr class="actions">
+          <td></td>
+          <td><%= f.submit "編集内容を保存",class: 'btn btn-sm btn-success btn-block mt-3' %></td>
+          <td></td>
+          <td><%= link_to '退会する', customers_unsubscribe_path, class: "btn btn-sm btn-danger mt-3" %></td>
+        </tr>
+      </tbody>
+    </table>
+  <% end %>
+</div>

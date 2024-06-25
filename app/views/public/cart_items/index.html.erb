@@ -1,2 +1,113 @@
-<h1>Public::CartItems#index</h1>
-<p>Find me in app/views/public/cart_items/index.html.erb</p>
+<div class="container mt-5 d-flex-column space-around">
+  <div class="row row-content">
+    <% if @cart_items.blank? %>
+      <div class="col-md-8 text-center my-5">
+        <h3>カート内に商品はございません</h3>
+      </div>
+    <% else %>
+      <div class="col-md-10">
+        <div class="row justify-content-center head-items mb-4">
+          <h4 class="col-md-4 text-center headline">ショッピングカート</h4>
+        </div>
+        <div class="row justify-content-end">
+          <div class="col-md-2 mb-2">
+            <%= link_to 'カートを空にする', destroy_all_cart_items_path, method: :delete, "data-confirm" => "カート内にある全ての商品が削除されます。\n本当に削除しますか？", class: "btn btn-sm btn-danger", style: "white-space: nowrap;" %>
+          </div>
+        </div>
+        <table class="table table-hover table-inverse table-bordered custom-table" style="border-color: #3C2A21;">
+          <thead style="background-color: rgba(105, 105, 105, 0.8); color: #E5E5CB; white-space: nowrap;">
+            <tr align=center >
+              <th scope="col" style="width: 40%; white-space: nowrap;">商品名</th>
+              <th scope="col" style="width: 10%; white-space: nowrap;">単価（税込）</th>
+              <th scope="col" style="width: 20%">数量</th>
+              <th scope="col" style="width: 10%; white-space: nowrap;">小計</th>
+              <th scope="col" style="width: 10%"></th>
+            </tr>
+          </thead>
+          <tbody style="background-color: rgba(255, 255, 249, 0.8); color: #000;" >
+            <% @cart_items.each do |cart_item| %>
+              <tr id="cart_item_<%= cart_item.id %>">
+                <td class="align-middle">
+                  <% if cart_item.item.image.attached? %>
+                    <%= image_tag cart_item.item.image.variant(resize_to_limit: [100, 100]), class: "p-2 image" %>
+                  <% end %>
+                  <%= cart_item.item.name %>
+                </td>
+                <td class="align-middle text-center"><%= number_to_currency(cart_item.item.with_tax_price, unit: "￥", format: "%u%n", precision: 0) %></td>
+                <td class="align-middle text-center">
+                  <%= form_with(model: cart_item, url: cart_item_path(cart_item), method: :patch, local: true, class: "select-form d-inline") do |form| %>
+                    <%= form.hidden_field :customer_id, value: current_customer.id %>
+                    <%= form.hidden_field :item_id, value: cart_item.item.id %>
+                    <%= form.select :amount, (1..100).map { |i| [i, i] }, {}, class: "form-select-sm", data: { remote: true, method: :patch, url: cart_item_path(cart_item) } %>
+                  <% end %>
+                </td>
+                <td class="align-middle subtotal-area text-center">
+                  <%= number_to_currency(cart_item.amount * cart_item.item.with_tax_price, unit: "￥", format: "%u%n", precision: 0) %>
+                </td>
+                <td class="align-middle text-center">
+                  <%= link_to '削除', cart_item_path(cart_item), method: :delete, class: "btn btn-danger", data: { confirm: "本当に削除しますか？" } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <% end %>
+  </div>
+  <div class="row row-content-middle mt-3">
+    <div class="col-md-7">
+      <%= link_to root_path, class: 'btn btn-lg', style: "background-color: #00fa9a; color: #ffffe0;" do %>
+        <i class="fa-solid fa-cart-arrow-down mr-2"></i> 買い物を続ける
+      <% end %>
+    </div>
+    <div class="col-md-3">
+      <table class="table table-hover table-inverse table-bordered" style="border-color: #3C2A21; margin-left: 0;">
+        <tbody style="background-color: rgba(255, 255, 249, 0.8); color: #000;" >
+          <tr>
+            <th style="background-color: rgba(105, 105, 105, 0.8); color: #E5E5CB; white-space: nowrap;">合計金額</th>
+            <td class="total-area">
+              <%= number_to_currency(@total_amount, unit: "￥", format: "%u%n", precision: 0) %>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <% if @cart_items.present? %>
+  <div class="row mt-5 row-content">
+    <div class="col-md-10 text-center">
+      <%= link_to new_order_path, class: 'btn btn-lg', style: "background-color: #00fa9a; color: #ffffe0;" do %>
+        <i class="fa-solid fa-address-card mr-2"></i> 情報入力へ進む
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".select-form select").forEach(function(selectElement) {
+      selectElement.addEventListener("change", function() {
+        let form = selectElement.closest("form");
+        let url = selectElement.dataset.url;
+        let method = selectElement.dataset.method;
+
+        let formData = new FormData(form);
+
+        fetch(url, {
+          method: method,
+          headers: {
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+          },
+          body: formData
+        }).then(response => {
+          if (response.ok) {
+            window.location.reload();
+          } else {
+            console.error("Failed to update the cart item");
+          }
+        });
+      });
+    });
+  });
+</script>

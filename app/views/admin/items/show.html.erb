@@ -1,2 +1,41 @@
-<h1>Admin::Items#show</h1>
-<p>Find me in app/views/admin/items/show.html.erb</p>
+<div class="container">
+  <h2 class="text-center my-5">商品詳細</h2>
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div>
+        <%= image_tag url_for(@item.image), class: 'img-fluid', style: 'width: 80%;' %>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="container">
+        <table>
+          <tr style="height: 80px;">
+            <th style="width: 20%">商品名</th>
+            <td><%= @item.name %></td>
+          </tr>
+          <tr style="height: 80px;">
+            <th>商品説明</th>
+            <td><%= @item.introduction %></td>
+          </tr>
+          <tr style="height: 80px;">
+            <th>ジャンル</th>
+            <td><%= @item.genre.name %></td>
+          </tr>
+          <tr style="height: 80px;">
+            <th>税込価格</br>(税抜価格)</th>
+            <td><%= number_with_delimiter((@item.price * 1.1).round) %> ( <%= number_with_delimiter(@item.price) %> ) 円</td>
+          </tr>
+          <tr style="height: 80px;">
+            <th>販売ステータス</th>
+            <td class="<%= @item.is_active ? 'text-success' : 'text-secondary' %> font-weight-bolder">
+              <%= @item.is_active ? '販売中' : '販売停止中' %>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="text-center my-4">
+      <%= link_to '編集する', edit_admin_item_path(@item), class: "btn btn-lg", style: "background-color: #00fa9a; color: #ffffe0;" %>
+    </div>
+  </div>
+</div>
