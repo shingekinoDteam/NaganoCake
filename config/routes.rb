@@ -102,6 +102,6 @@ end
       patch 'order_details/:id', to: 'orders#update_order_detail', as: 'update_order_detail'
     end
   end
-
+get '/genre/search' => 'searches#genre_search'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
