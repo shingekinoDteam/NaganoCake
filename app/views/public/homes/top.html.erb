@@ -12,7 +12,7 @@
           <% @genres.each do |genre| %>
             <tr>
               <!--現状はジャンル名表示だけ、linkなし-->
-              <td class="border-0"><%= link_to genre.name, genre_search_path(genre_id: genre.id), method: :get, class: "badge badge-secondary" %></td>
+              <td class="border-0"><%= link_to genre.name, genre_search_path(genre_id: genre.id), method: :get %></td>
             </tr>
           <% end %>
         </tbody>
